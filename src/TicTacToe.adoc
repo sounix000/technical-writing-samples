@@ -22,8 +22,10 @@ image::tic1.png[width=25%, height=25%, align=center]
 The rules of the game are as follows:
 
 * You and your opponent choose either **`X`** or **`O`** as your symbol. If you choose **`O`**, your opponent will get **`X`**.
+
 * On your turn, place your symbol in any vacant cell in the `3x3` grid. The first player can place their symbol in any of the nine cells.
 image::tic2.png[width=25%, height=25%, align=center]
+
 * The goal is to mark three consecutive cells in a straight line. This can be horizontal, vertical, or diagonal. _The first player to mark three consecutive cells **wins** the game_.
 * _If neither player marks three consecutive cells before the grid is full, the game ends in a **draw**_.
 
