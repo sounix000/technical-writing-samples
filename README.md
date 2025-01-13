@@ -1,1 +1,3 @@
-# google_2025
+# Artifacts for Google Technical Writer Interview in 2025
+
+Hello, world!
