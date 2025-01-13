@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>REST vs SOAP</title>
+<title>Choosing between REST and SOAP: A guide for engineers</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,16 +436,223 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>REST vs SOAP</h1>
+<h1>Choosing between REST and SOAP: A guide for engineers</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_soap_overview">SOAP overview</a>
+<ul class="sectlevel2">
+<li><a href="#_when_to_choose_soap">When to choose SOAP</a></li>
+<li><a href="#_soap_limitations">SOAP limitations</a></li>
+</ul>
+</li>
+<li><a href="#_rest_overview">REST overview</a>
+<ul class="sectlevel2">
+<li><a href="#_when_to_choose_rest">When to choose REST</a></li>
+<li><a href="#_rest_limitations">REST limitations</a></li>
+</ul>
+</li>
+<li><a href="#_decision_guide">Decision guide</a></li>
+<li><a href="#_key_considerations">Key considerations</a></li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Lorem ipsum.</p>
+<p>When designing a web service, you must carefully evaluate the choice between SOAP and REST. This guide explains their strengths, limitations, and use cases to help you make an informed decision.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soap_overview">SOAP overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SOAP (Simple Object Access Protocol) is a protocol for exchanging XML-based messages over a network. It uses Web Services Description Language (WSDL) to define:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Resources, operations, and procedure calls</p>
+</li>
+<li>
+<p>Message structure, encoding, and encapsulation</p>
+</li>
+<li>
+<p>Bindings with network transport protocols</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>SOAP APIs are often auto-generated using tools that create server-side and client-side code templates, but the resulting implementations can be challenging to develop and maintain.</p>
+</div>
+<div class="sect2">
+<h3 id="_when_to_choose_soap">When to choose SOAP</h3>
+<div class="paragraph">
+<p>SOAP is suitable for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enterprise-level security:</strong> Supports WS-Security for encryption, authentication, and message integrity.</p>
+</li>
+<li>
+<p><strong>Complex transactions:</strong> Ensures reliability in distributed environments through features like ACID-compliant transactions.</p>
+</li>
+<li>
+<p><strong>Strict contracts:</strong> Enforces formal service definitions using WSDL, ensuring consistency and reliability.</p>
+</li>
+<li>
+<p><strong>Stateful interactions:</strong> Useful for cases requiring session management or multi-step workflows.</p>
+</li>
+<li>
+<p><strong>Legacy systems:</strong> Facilitates integration with older enterprise systems.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_soap_limitations">SOAP limitations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tight coupling:</strong> Changes to the server often require updates to the client, reducing flexibility.</p>
+</li>
+<li>
+<p><strong>XML-only payloads:</strong> Mandatory use of XML increases message size and complexity.</p>
+</li>
+<li>
+<p><strong>High overhead:</strong> SOAP messages are verbose, requiring more bandwidth and processing power.</p>
+</li>
+<li>
+<p><strong>Slower development:</strong> Complex implementation results in longer development cycles.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rest_overview">REST overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>REST (Representational State Transfer) is an architectural style that leverages standard HTTP methods for stateless web service interactions. REST APIs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use URLs to represent resources.</p>
+</li>
+<li>
+<p>Support multiple data formats, including JSON, XML, and HTML.</p>
+</li>
+<li>
+<p>Implement HTTP methods such as GET, POST, PUT, DELETE, PATCH, and more.</p>
+</li>
+<li>
+<p>Can mark responses as cacheable, reducing client-server interactions.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Tools and frameworks can generate REST APIs and documentation from application code, enabling rapid development.</p>
+</div>
+<div class="sect2">
+<h3 id="_when_to_choose_rest">When to choose REST</h3>
+<div class="paragraph">
+<p>REST is ideal for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Public APIs:</strong> Designed for widespread adoption and third-party integrations.</p>
+</li>
+<li>
+<p><strong>Rapid development:</strong> Simple and flexible, with fewer constraints than SOAP.</p>
+</li>
+<li>
+<p><strong>Data format flexibility:</strong> Supports lightweight formats like JSON, ideal for modern web and mobile applications.</p>
+</li>
+<li>
+<p><strong>Scalability and caching:</strong> Statelessness and response caching improve performance and scalability.</p>
+</li>
+<li>
+<p><strong>Broad adoption:</strong> REST is widely supported by tools, frameworks, and a large developer community.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_limitations">REST limitations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Security challenges:</strong> Requires additional measures (e.g., HTTPS, token-based authentication) to ensure security.</p>
+</li>
+<li>
+<p><strong>Limited operations:</strong> Restricts interactions to standard HTTP methods, which may not cover all use cases.</p>
+</li>
+<li>
+<p><strong>Scalability complexities:</strong> Point-to-point communication can complicate scaling with multiple clients.</p>
+</li>
+<li>
+<p><strong>Versioning difficulties:</strong> Major schema changes can break clients if not managed properly.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decision_guide">Decision guide</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Use <strong>SOAP</strong> for secure, reliable, and stateful operations, especially in enterprise environments or when working with legacy systems.</p>
+</li>
+<li>
+<p>Use <strong>REST</strong> for simple, scalable, and fast APIs that support modern web or mobile applications and prioritize flexibility.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_considerations">Key considerations</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Assess your team’s expertise with SOAP or REST.</p>
+</li>
+<li>
+<p>Plan for future maintenance, including versioning strategies for REST APIs.</p>
+</li>
+<li>
+<p>Use tools for API generation and documentation to speed up development and ensure consistency.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Choose REST for most modern web services unless your requirements specifically align with SOAP’s strengths, such as strict contracts or enterprise-grade security.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-13 15:55:33 +0530
+Last updated 2025-01-13 17:48:25 +0530
 </div>
 </div>
 </body>
