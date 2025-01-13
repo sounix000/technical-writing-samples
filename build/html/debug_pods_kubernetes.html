@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Debugging Pods in Kubernetes</title>
+<title>Debugging pods in Kubernetes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -508,7 +508,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </head>
 <body class="article">
 <div id="header">
-<h1>Debugging Pods in Kubernetes</h1>
+<h1>Debugging pods in Kubernetes</h1>
 </div>
 <div id="content">
 <div id="preamble">
@@ -516,47 +516,21 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div id="toc" class="toc">
 <div id="toctitle" class="title">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_what_you_will_learn">What you will Learn</a></li>
 <li><a href="#_prerequisites">Prerequisites</a></li>
-<li><a href="#_debugging_pods_in_a_kubernetes_cluster">Debugging pods in a Kubernetes cluster</a>
+<li><a href="#_what_youll_learn">What you&#8217;ll learn</a></li>
+<li><a href="#_debug_pods_in_a_kubernetes_cluster">Debug pods in a Kubernetes cluster</a>
 <ul class="sectlevel2">
-<li><a href="#_step_1_list_pods_and_their_status">Step 1: List pods and their status</a></li>
-<li><a href="#_step_2_analyze_pod_logs">Step 2: Analyze pod logs</a></li>
-<li><a href="#_step_3_execute_commands_inside_a_pod">Step 3: Execute commands inside a pod</a></li>
-<li><a href="#_step_4_debug_pods_using_ephemeral_containers">Step 4: Debug pods using ephemeral containers</a></li>
+<li><a href="#_step_1_check_pod_status">Step 1: Check pod status</a></li>
+<li><a href="#_step_2_review_pod_logs">Step 2: Review pod logs</a></li>
+<li><a href="#_step_3_execute_container_commands">Step 3: Execute container commands</a></li>
+<li><a href="#_step_4_use_ephemeral_debug_containers">Step 4: Use ephemeral debug containers</a></li>
 </ul>
 </li>
-<li><a href="#_key_takeaways">Key takeaways</a></li>
 <li><a href="#_additional_resources">Additional resources</a></li>
 </ul>
 </div>
-<hr>
 <div class="paragraph">
-<p>Pods are the smallest deployable units in Kubernetes, and their health is critical to application functionality. Debugging pods ensures that applications run smoothly, scaling is seamless, and cluster resources are utilized effectively.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_what_you_will_learn">What you will Learn</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This article is designed for <strong>Kubernetes cluster administrators and developers</strong> who need to troubleshoot issues with pods. By following this article, you will know how to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Inspect the status of pods in your cluster.</p>
-</li>
-<li>
-<p>Analyze logs for debugging purposes.</p>
-</li>
-<li>
-<p>Run shell commands within containers.</p>
-</li>
-<li>
-<p>Use ephemeral containers for interactive debugging.</p>
-</li>
-</ul>
+<p>Pods are the smallest deployable units in Kubernetes. Their health is critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.</p>
 </div>
 </div>
 </div>
@@ -564,30 +538,60 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2 id="_prerequisites">Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before you start, ensure the following:</p>
+<p>Before starting, verify:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>You have access to a Kubernetes cluster with running pods.</p>
+<p>Access to a Kubernetes cluster with running pods</p>
 </li>
 <li>
-<p>You can execute <code>kubectl</code> commands with sufficient permissions.</p>
+<p>Sufficient permissions to execute <code>kubectl</code> commands</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_debugging_pods_in_a_kubernetes_cluster">Debugging pods in a Kubernetes cluster</h2>
+<h2 id="_what_youll_learn">What you&#8217;ll learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section illustrates some common techniques that you can use sequentially to debug pods in a Kubernetes cluster. Depending on the problem, you can also combine and enhance them to form a customized approach:</p>
+<p>This guide helps Kubernetes cluster administrators and developers troubleshoot pod issues. After reading, you&#8217;ll be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inspect pod status in a cluster</p>
+</li>
+<li>
+<p>Analyze logs for debugging</p>
+</li>
+<li>
+<p>Execute shell commands within containers</p>
+</li>
+<li>
+<p>Use ephemeral containers for interactive debugging</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Estimated time: 30 minutes</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_debug_pods_in_a_kubernetes_cluster">Debug pods in a Kubernetes cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections describe common debugging techniques. Use these techniques sequentially or combine them based on your specific scenario.</p>
 </div>
 <div class="sect2">
-<h3 id="_step_1_list_pods_and_their_status">Step 1: List pods and their status</h3>
+<h3 id="_step_1_check_pod_status">Step 1: Check pod status</h3>
 <div class="paragraph">
-<p>The first step in debugging is to check the status of your pods.</p>
+<p>Begin debugging by checking the status of your pods.</p>
+</div>
+<div class="paragraph">
+<p>To list all pods:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -595,51 +599,30 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 <div class="paragraph">
-<p>To list pods in a specific namespace, use:</p>
+<p>To list pods in a specific namespace:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>get<span class="tok-w"> </span>pods<span class="tok-w"> </span>--namespace<span class="tok-o">=</span>NAMESPACE</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>get<span class="tok-w"> </span>pods<span class="tok-w"> </span>--namespace<span class="tok-o">=</span>&lt;namespace-name&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
-<div class="title">Example: Listing pods in the default namespace</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>get<span class="tok-w"> </span>pods<span class="tok-w"> </span>--namespace<span class="tok-o">=</span>default</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>NAME<span class="tok-w">                          </span>READY<span class="tok-w">   </span>STATUS<span class="tok-w">    </span>RESTARTS<span class="tok-w">   </span>AGE
-hello-node-7b87cd5f68-2wp4m<span class="tok-w">   </span><span class="tok-m">1</span>/1<span class="tok-w">     </span>Running<span class="tok-w">   </span><span class="tok-m">0</span><span class="tok-w">          </span>21m</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p>If you prefer a graphical interface, use the Kubernetes dashboard. Navigate to the <strong>Pods</strong> section, and click a pod name to view its details.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="/Users/souviksarkar/Documents/PERSONAL/PROJECTS/google_2025/src/images/pods.png" alt="pods" width="50%">
-</div>
-<div class="title">Figure 1. Pods in the Kubernetes dashboard</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step_2_analyze_pod_logs">Step 2: Analyze pod logs</h3>
-<div class="paragraph">
-<p>Logs provide insights into what the container is doing or why it failed. You can view logs for all containers in a pod or a specific container.</p>
+<p>Expected output:</p>
 </div>
 <div class="listingblock">
-<div class="title">View all logs in a pod</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>POD<span class="tok-w"> </span>--all-containers<span class="tok-o">=</span><span class="tok-nb">true</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">View logs for a specific container</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>POD<span class="tok-w"> </span>-c<span class="tok-w"> </span>CONTAINER</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>NAME<span class="tok-w">                                    </span>READY<span class="tok-w">   </span>STATUS<span class="tok-w">             </span>RESTARTS<span class="tok-w">   </span>AGE
+hello-node-7b87cd5f68-2wp4m<span class="tok-w">             </span><span class="tok-m">1</span>/1<span class="tok-w">     </span>Running<span class="tok-w">            </span><span class="tok-m">0</span><span class="tok-w">          </span>21m
+nginx-deployment-66b6c48dd5-8k4h2<span class="tok-w">       </span><span class="tok-m">0</span>/1<span class="tok-w">     </span>Pending<span class="tok-w">            </span><span class="tok-m">0</span><span class="tok-w">          </span>5m
+redis-master-58db8984f-xp4c8<span class="tok-w">            </span><span class="tok-m">0</span>/1<span class="tok-w">     </span>ImagePullBackOff<span class="tok-w">   </span><span class="tok-m">0</span><span class="tok-w">          </span>2m</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -650,35 +633,54 @@ hello-node-7b87cd5f68-2wp4m<span class="tok-w">   </span><span class="tok-m">1</
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If the pod contains only one container, you do not need to specify the container name.</p>
+<p>If a pod is stuck in <code>Pending</code> status, check cluster resource availability using <code>kubectl describe node</code>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">Example: Viewing logs for the hello-node pod</div>
+<div class="paragraph">
+<p>For a graphical interface, use the Kubernetes dashboard:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Kubernetes dashboard</p>
+</li>
+<li>
+<p>Navigate to the Pods section</p>
+</li>
+<li>
+<p>Select a pod to view its details</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>hello-node-7b87cd5f68-2wp4m</code></pre>
+<img src="/Users/souviksarkar/Documents/PERSONAL/PROJECTS/google_2025/src/images/pods.png" alt="pods">
 </div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>I0715<span class="tok-w"> </span><span class="tok-m">06</span>:51:04.198447<span class="tok-w">       </span><span class="tok-m">1</span><span class="tok-w"> </span>log.go:195<span class="tok-o">]</span><span class="tok-w"> </span>Started<span class="tok-w"> </span>HTTP<span class="tok-w"> </span>server<span class="tok-w"> </span>on<span class="tok-w"> </span>port<span class="tok-w"> </span><span class="tok-m">8080</span>
-I0715<span class="tok-w"> </span><span class="tok-m">06</span>:51:04.198572<span class="tok-w">       </span><span class="tok-m">1</span><span class="tok-w"> </span>log.go:195<span class="tok-o">]</span><span class="tok-w"> </span>Started<span class="tok-w"> </span>UDP<span class="tok-w"> </span>server<span class="tok-w"> </span>on<span class="tok-w"> </span>port<span class="tok-w"> </span><span class="tok-m">8081</span></code></pre>
-</div>
+<div class="title">Figure 1. Pod details in the Kubernetes dashboard</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_step_3_execute_commands_inside_a_pod">Step 3: Execute commands inside a pod</h3>
+<h3 id="_step_2_review_pod_logs">Step 2: Review pod logs</h3>
 <div class="paragraph">
-<p>To inspect the state of a container, run shell commands directly inside it.</p>
+<p>Logs help identify what a container is doing or why it failed.</p>
+</div>
+<div class="paragraph">
+<p>To view logs from all containers in a pod:</p>
 </div>
 <div class="listingblock">
-<div class="title">Execute a shell command inside a pod</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>POD<span class="tok-w"> </span>-c<span class="tok-w"> </span>CONTAINER<span class="tok-w"> </span>--<span class="tok-w"> </span>SHELL-COMMAND</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>--all-containers<span class="tok-o">=</span><span class="tok-nb">true</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To view logs from a specific container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>-c<span class="tok-w"> </span>&lt;container-name&gt;</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -689,77 +691,225 @@ I0715<span class="tok-w"> </span><span class="tok-m">06</span>:51:04.198572<span
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If no container is specified, the command is executed in the first container by default.</p>
+<p>For pods with a single container, omit the container name.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">Example: Run the <code>date</code> command in the <code>hello-node-7b87cd5f68-2wp4m</code> pod:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>hello-node-7b87cd5f68-2wp4m<span class="tok-w"> </span>--<span class="tok-w"> </span>date</code></pre>
-</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>Sat<span class="tok-w"> </span>Jul<span class="tok-w"> </span><span class="tok-m">15</span><span class="tok-w"> </span><span class="tok-m">08</span>:05:14<span class="tok-w"> </span>UTC<span class="tok-w"> </span><span class="tok-m">2023</span></code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>hello-node-7b87cd5f68-2wp4m</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Expected output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>I0715<span class="tok-w"> </span><span class="tok-m">06</span>:51:04.198447<span class="tok-w">       </span><span class="tok-m">1</span><span class="tok-w"> </span>log.go:195<span class="tok-o">]</span><span class="tok-w"> </span>Started<span class="tok-w"> </span>HTTP<span class="tok-w"> </span>server<span class="tok-w"> </span>on<span class="tok-w"> </span>port<span class="tok-w"> </span><span class="tok-m">8080</span>
+I0715<span class="tok-w"> </span><span class="tok-m">06</span>:51:04.198572<span class="tok-w">       </span><span class="tok-m">1</span><span class="tok-w"> </span>log.go:195<span class="tok-o">]</span><span class="tok-w"> </span>Started<span class="tok-w"> </span>UDP<span class="tok-w"> </span>server<span class="tok-w"> </span>on<span class="tok-w"> </span>port<span class="tok-w"> </span><span class="tok-m">8081</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For pods in <code>CrashLoopBackOff</code> status, check logs with the <code>--previous</code> flag to see the last container&#8217;s logs before it crashed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>logs<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>--previous</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_step_4_debug_pods_using_ephemeral_containers">Step 4: Debug pods using ephemeral containers</h3>
+<h3 id="_step_3_execute_container_commands">Step 3: Execute container commands</h3>
 <div class="paragraph">
-<p>Ephemeral containers allow you to attach debugging tools to a running pod without modifying the original containers.</p>
+<p>Inspect container state by running shell commands directly inside it.</p>
+</div>
+<div class="paragraph">
+<p>Syntax:</p>
 </div>
 <div class="listingblock">
-<div class="title">Debug pod using an ephemeral container created from an image</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>POD<span class="tok-w"> </span>-it<span class="tok-w"> </span>--image<span class="tok-o">=</span>IMAGE</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>-c<span class="tok-w"> </span>&lt;container-name&gt;<span class="tok-w"> </span>--<span class="tok-w"> </span>&lt;command&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If not specified, commands run in the first container of the pod.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="title">Check container environment variables</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>nginx-deployment-66b6c48dd5-8k4h2<span class="tok-w"> </span>--<span class="tok-w"> </span>env</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span><span class="tok-nv">PATH</span><span class="tok-o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+<span class="tok-nv">HOSTNAME</span><span class="tok-o">=</span>nginx-deployment-66b6c48dd5-8k4h2
+<span class="tok-nv">NGINX_VERSION</span><span class="tok-o">=</span><span class="tok-m">1</span>.21.1
+<span class="tok-nv">NJS_VERSION</span><span class="tok-o">=</span><span class="tok-m">0</span>.6.1
+<span class="tok-nv">PKG_RELEASE</span><span class="tok-o">=</span><span class="tok-m">1</span>~buster
+<span class="tok-nv">HOME</span><span class="tok-o">=</span>/root</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Example: Debug the <code>hello-node-7b87cd5f68-2wp4m</code> pod using the <code>busybox</code> image:</div>
+<div class="title">Verify network connectivity</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>hello-node-7b87cd5f68-2wp4m<span class="tok-w"> </span>-it<span class="tok-w"> </span>--image<span class="tok-o">=</span>busybox</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>nginx-deployment-66b6c48dd5-8k4h2<span class="tok-w"> </span>--<span class="tok-w"> </span>curl<span class="tok-w"> </span>-I<span class="tok-w"> </span>localhost:80</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>HTTP/1.1<span class="tok-w"> </span><span class="tok-m">200</span><span class="tok-w"> </span>OK
+Server:<span class="tok-w"> </span>nginx/1.21.1
+Date:<span class="tok-w"> </span>Tue,<span class="tok-w"> </span><span class="tok-m">14</span><span class="tok-w"> </span>Jan<span class="tok-w"> </span><span class="tok-m">2025</span><span class="tok-w"> </span><span class="tok-m">10</span>:15:23<span class="tok-w"> </span>GMT
+Content-Type:<span class="tok-w"> </span>text/html
+Content-Length:<span class="tok-w"> </span><span class="tok-m">612</span>
+Connection:<span class="tok-w"> </span>keep-alive</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Check running processes</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>Defaulting<span class="tok-w"> </span>debug<span class="tok-w"> </span>container<span class="tok-w"> </span>name<span class="tok-w"> </span>to<span class="tok-w"> </span>debugger-55rjd.
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span><span class="tok-nb">exec</span><span class="tok-w"> </span>nginx-deployment-66b6c48dd5-8k4h2<span class="tok-w"> </span>--<span class="tok-w"> </span>ps<span class="tok-w"> </span>aux</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>USER<span class="tok-w">       </span>PID<span class="tok-w"> </span>%CPU<span class="tok-w"> </span>%MEM<span class="tok-w">    </span>VSZ<span class="tok-w">   </span>RSS<span class="tok-w"> </span>TTY<span class="tok-w">   </span>STAT<span class="tok-w"> </span>START<span class="tok-w">   </span>TIME<span class="tok-w"> </span>COMMAND
+root<span class="tok-w">         </span><span class="tok-m">1</span><span class="tok-w">  </span><span class="tok-m">0</span>.0<span class="tok-w">  </span><span class="tok-m">0</span>.1<span class="tok-w">  </span><span class="tok-m">10640</span><span class="tok-w">  </span><span class="tok-m">5548</span><span class="tok-w"> </span>?<span class="tok-w">     </span>Ss<span class="tok-w">   </span><span class="tok-m">10</span>:00<span class="tok-w">   </span><span class="tok-m">0</span>:00<span class="tok-w"> </span>nginx:<span class="tok-w"> </span>master<span class="tok-w"> </span>process
+nginx<span class="tok-w">       </span><span class="tok-m">31</span><span class="tok-w">  </span><span class="tok-m">0</span>.0<span class="tok-w">  </span><span class="tok-m">0</span>.1<span class="tok-w">  </span><span class="tok-m">11088</span><span class="tok-w">  </span><span class="tok-m">5164</span><span class="tok-w"> </span>?<span class="tok-w">     </span>S<span class="tok-w">    </span><span class="tok-m">10</span>:00<span class="tok-w">   </span><span class="tok-m">0</span>:00<span class="tok-w"> </span>nginx:<span class="tok-w"> </span>worker<span class="tok-w"> </span>process</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For containers that crash immediately, create a copy of the pod with a sleep command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>--copy-to<span class="tok-o">=</span>&lt;pod-name&gt;-debug<span class="tok-w"> </span>--container<span class="tok-o">=</span>&lt;container-name&gt;<span class="tok-w"> </span>--<span class="tok-w"> </span>sleep<span class="tok-w"> </span>1d</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_use_ephemeral_debug_containers">Step 4: Use ephemeral debug containers</h3>
+<div class="paragraph">
+<p>Ephemeral containers let you attach debugging tools to running pods without modifying the original containers.</p>
+</div>
+<div class="paragraph">
+<p>To create an ephemeral debug container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>-it<span class="tok-w"> </span>--image<span class="tok-o">=</span>&lt;debug-image&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="title">Debug networking issues using netshoot</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>nginx-deployment-66b6c48dd5-8k4h2<span class="tok-w"> </span>-it<span class="tok-w"> </span>--image<span class="tok-o">=</span>nicolaka/netshoot</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>Defaulting<span class="tok-w"> </span>debug<span class="tok-w"> </span>container<span class="tok-w"> </span>name<span class="tok-w"> </span>to<span class="tok-w"> </span>debugger-nx8j2.
 If<span class="tok-w"> </span>you<span class="tok-w"> </span>don<span class="tok-err">&#39;</span>t<span class="tok-w"> </span>see<span class="tok-w"> </span>a<span class="tok-w"> </span><span class="tok-nb">command</span><span class="tok-w"> </span>prompt,<span class="tok-w"> </span>try<span class="tok-w"> </span>pressing<span class="tok-w"> </span>enter.
-/<span class="tok-w"> </span><span class="tok-c1"># pwd</span>
-/
-/<span class="tok-w"> </span><span class="tok-c1"># ls -al</span>
-...
-/<span class="tok-w"> </span><span class="tok-c1"># exit</span>
-Session<span class="tok-w"> </span>ended.<span class="tok-w"> </span>The<span class="tok-w"> </span>ephemeral<span class="tok-w"> </span>container<span class="tok-w"> </span>will<span class="tok-w"> </span>not<span class="tok-w"> </span>restart<span class="tok-w"> </span>but<span class="tok-w"> </span>can<span class="tok-w"> </span>be<span class="tok-w"> </span>reattached<span class="tok-w"> </span>using:
-kubectl<span class="tok-w"> </span>attach<span class="tok-w"> </span>hello-node-7b87cd5f68-2wp4m<span class="tok-w"> </span>-c<span class="tok-w"> </span>debugger-55rjd<span class="tok-w"> </span>-i<span class="tok-w"> </span>-t</code></pre>
+~<span class="tok-w"> </span><span class="tok-c1"># dig kubernetes.default.svc.cluster.local</span>
+~<span class="tok-w"> </span><span class="tok-c1"># curl -v telnet://nginx-service:80</span>
+~<span class="tok-w"> </span><span class="tok-c1"># tcpdump -i any port 80</span></code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Analyze memory usage with tools</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>debug<span class="tok-w"> </span>redis-master-58db8984f-xp4c8<span class="tok-w"> </span>-it<span class="tok-w"> </span>--image<span class="tok-o">=</span>ubuntu</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Expected output:</p>
 </div>
-<div class="sect1">
-<h2 id="_key_takeaways">Key takeaways</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Status check</strong>: Always begin debugging by checking the pod status.</p>
-</li>
-<li>
-<p><strong>Log analysis</strong>: Use logs to pinpoint issues.</p>
-</li>
-<li>
-<p><strong>Interactive commands</strong>: Execute shell commands inside containers for deeper insights.</p>
-</li>
-<li>
-<p><strong>Ephemeral debugging</strong>: Attach temporary containers to troubleshoot without disrupting workloads.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>Defaulting<span class="tok-w"> </span>debug<span class="tok-w"> </span>container<span class="tok-w"> </span>name<span class="tok-w"> </span>to<span class="tok-w"> </span>debugger-7xj4d.
+If<span class="tok-w"> </span>you<span class="tok-w"> </span>don<span class="tok-err">&#39;</span>t<span class="tok-w"> </span>see<span class="tok-w"> </span>a<span class="tok-w"> </span><span class="tok-nb">command</span><span class="tok-w"> </span>prompt,<span class="tok-w"> </span>try<span class="tok-w"> </span>pressing<span class="tok-w"> </span>enter.
+root@redis-master-58db8984f-xp4c8:/#<span class="tok-w"> </span>apt-get<span class="tok-w"> </span>update
+root@redis-master-58db8984f-xp4c8:/#<span class="tok-w"> </span>apt-get<span class="tok-w"> </span>install<span class="tok-w"> </span>-y<span class="tok-w"> </span>procps
+root@redis-master-58db8984f-xp4c8:/#<span class="tok-w"> </span>top
+...Memory<span class="tok-w"> </span>usage<span class="tok-w"> </span>details...</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For pods with <code>ImagePullBackOff</code> status, verify image name and registry credentials. Check image pull secrets using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>get<span class="tok-w"> </span>pod<span class="tok-w"> </span>&lt;pod-name&gt;<span class="tok-w"> </span>-o<span class="tok-o">=</span><span class="tok-nv">jsonpath</span><span class="tok-o">=</span><span class="tok-s1">&#39;{.spec.imagePullSecrets[0].name}&#39;</span></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -767,12 +917,12 @@ kubectl<span class="tok-w"> </span>attach<span class="tok-w"> </span>hello-node-
 <h2 id="_additional_resources">Additional resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For further details on debugging pods, consult the official Kubernetes documentation:</p>
+<p>For more information about debugging pods, see:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/">Debug Running Pods</a></p>
+<p><a href="https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/">Debug running pods</a> in the Kubernetes documentation</p>
 </li>
 </ul>
 </div>
