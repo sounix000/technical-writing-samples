@@ -1,3 +1,48 @@
-= TicTacToe
+= How to play Tic-Tac-Toe
+:toc: macro
+:doctype: article
+:pdf-page-size: Letter
+:sectnums!:
+:experimental:
+:source-highlighter: pygments
+:pygments-style: oscar
+:pdf-themesdir: {docdir}
+:imagesdir: {docdir}/images
 
-Lorem Ipsum.
+toc::[]
+
+---
+
+Tic-Tac-Toe is a simple and fun game that you can play anywhere. To play, you need a `3x3` grid and an opponent. You can also practice against yourself or a computer and surprise your friends with your unbeatable skills.
+
+image::tic1.png[]
+//image::{docdir}/images/tic1.png[]
+
+
+== Rules
+The rules of the game are as follows:
+
+* You and your opponent choose either **`X`** or **`O`** as your symbol. If you choose **`O`**, your opponent will get **`X`**.
+* On your turn, place your symbol in any vacant cell in the `3x3` grid. The first player can place their symbol in any of the nine cells.
+* The goal is to mark three consecutive cells in a straight line. This can be horizontal, vertical, or diagonal. _The first player to mark three consecutive cells **wins** the game_.
+* _If neither player marks three consecutive cells before the grid is full, the game ends in a **draw**_.
+
+== How to avoid losing
+Tic-Tac-Toe is a zero-sum game, meaning that _if both players make the **best possible moves**, the game will always end in a **draw**_. Computer games are often programmed based on this principle. You can play these games to practice and improve your chances of not losing.
+
+The real fun is playing against human opponents because they are prone to making mistakes. _You can **win** or force a **draw** if you follow these strategies_:
+
+* On your first move, always place your symbol in the center (the middlemost cell). This gives you the most opportunities to create a straight-line arrangement in all four directions (horizontal, vertical, and two diagonals).
+
+* If your opponent starts by placing their symbol in the center, place your symbol in one of the four corners. This gives you the chance to extend your line in both horizontal and vertical directions.
+
+* If your opponent has already marked two consecutive cells, block the third cell in that line. Remember, once your opponent marks three consecutive cells, the game is over.
+
+* If your opponent has multiple ways to complete a line, blocking one path may not be enough. In this case, you will lose regardless of which path you block.
+
+* If you are blocked, explore other open directions to maximize your chances. It is also important to use the cells you have already marked strategically.
+
+== Example
+In the **`i`**th move of a sample game, your opponent places their symbol as **`Xi`**, and you place your symbol as **`Oi`**. From the figure, you can understand the game's progression and outcome.
+
+If a `3x3` grid is too simple for you, try a `4x4` or `5x5` grid. But always stay alert and anticipate your opponent's next two moves. Most importantly, have fun playing Tic-Tac-Toe!
