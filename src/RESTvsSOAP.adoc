@@ -6,6 +6,9 @@
 :experimental:
 :source-highlighter: pygments
 :pygments-style: oscar
+:pdf-themesdir: {docdir}
+:imagesdir: {docdir}/images
+:nofooter:
 
 toc::[]
 
