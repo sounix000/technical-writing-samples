@@ -8,6 +8,8 @@
 :pygments-style: oscar
 :pdf-themesdir: {docdir}
 :imagesdir: {docdir}/images
+:noheader:
+:nofooter:
 
 toc::[]
 
