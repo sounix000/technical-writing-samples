@@ -1,0 +1,173 @@
+= Debugging Pods in Kubernetes
+:toc: macro
+:doctype: article
+:pdf-page-size: Letter
+:sectnums!:
+:experimental:
+:source-highlighter: pygments
+:pygments-style: oscar
+:pdf-themesdir: {docdir}
+:imagesdir: {docdir}/images
+:nofooter:
+
+toc::[]
+---
+
+Pods are the smallest deployable units in Kubernetes, and their health is critical to application functionality. Debugging pods ensures that applications run smoothly, scaling is seamless, and cluster resources are utilized effectively.
+
+== What you will Learn
+
+This article is designed for *Kubernetes cluster administrators and developers* who need to troubleshoot issues with pods. By following this article, you will know how to:
+
+* Inspect the status of pods in your cluster.
+* Analyze logs for debugging purposes.
+* Run shell commands within containers.
+* Use ephemeral containers for interactive debugging.
+
+== Prerequisites
+
+Before you start, ensure the following:
+
+* You have access to a Kubernetes cluster with running pods.
+* You can execute `kubectl` commands with sufficient permissions.
+
+== Debugging pods in a Kubernetes cluster
+
+This section illustrates some common techniques that you can use sequentially to debug pods in a Kubernetes cluster. Depending on the problem, you can also combine and enhance them to form a customized approach:
+
+=== Step 1: List pods and their status
+
+The first step in debugging is to check the status of your pods.
+
+[source,shell]
+----
+$ kubectl get pods
+----
+
+To list pods in a specific namespace, use:
+
+[source,shell]
+----
+$ kubectl get pods --namespace=NAMESPACE
+----
+
+.Example: Listing pods in the default namespace
+[source,shell]
+----
+$ kubectl get pods --namespace=default
+----
+
+.Sample output
+[source,shell]
+----
+NAME                          READY   STATUS    RESTARTS   AGE
+hello-node-7b87cd5f68-2wp4m   1/1     Running   0          21m
+----
+
+If you prefer a graphical interface, use the Kubernetes dashboard. Navigate to the *Pods* section, and click a pod name to view its details. 
+
+image::pods.png[width=50%, align="center",title="Pods in the Kubernetes dashboard"]
+
+=== Step 2: Analyze pod logs
+
+Logs provide insights into what the container is doing or why it failed. You can view logs for all containers in a pod or a specific container.
+
+.View all logs in a pod
+[source,shell]
+----
+$ kubectl logs POD --all-containers=true
+----
+
+.View logs for a specific container
+[source,shell]
+----
+$ kubectl logs POD -c CONTAINER
+----
+
+[TIP]
+====
+If the pod contains only one container, you do not need to specify the container name.
+====
+
+.Example: Viewing logs for the hello-node pod
+[source,shell]
+----
+$ kubectl logs hello-node-7b87cd5f68-2wp4m
+----
+
+.Sample output
+[source,shell]
+----
+I0715 06:51:04.198447       1 log.go:195] Started HTTP server on port 8080
+I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081
+----
+
+=== Step 3: Execute commands inside a pod
+
+To inspect the state of a container, run shell commands directly inside it.
+
+.Execute a shell command inside a pod
+[source,shell]
+----
+$ kubectl exec POD -c CONTAINER -- SHELL-COMMAND
+----
+
+[NOTE]
+====
+If no container is specified, the command is executed in the first container by default.
+====
+
+.Example: Run the `date` command in the `hello-node-7b87cd5f68-2wp4m` pod:
+[source,shell]
+----
+$ kubectl exec hello-node-7b87cd5f68-2wp4m -- date
+----
+
+.Sample output
+[source,shell]
+----
+Sat Jul 15 08:05:14 UTC 2023
+----
+
+=== Step 4: Debug pods using ephemeral containers
+
+Ephemeral containers allow you to attach debugging tools to a running pod without modifying the original containers.
+
+.Debug pod using an ephemeral container created from an image
+[source,shell]
+----
+$ kubectl debug POD -it --image=IMAGE
+----
+
+.Example: Debug the `hello-node-7b87cd5f68-2wp4m` pod using the `busybox` image:
+[source,shell]
+----
+$ kubectl debug hello-node-7b87cd5f68-2wp4m -it --image=busybox
+----
+
+.Sample output
+[source,shell]
+----
+Defaulting debug container name to debugger-55rjd.
+If you don't see a command prompt, try pressing enter.
+/ # pwd
+/
+/ # ls -al
+...
+/ # exit
+Session ended. The ephemeral container will not restart but can be reattached using:
+kubectl attach hello-node-7b87cd5f68-2wp4m -c debugger-55rjd -i -t
+----
+
+== Key takeaways
+
+* **Status check**: Always begin debugging by checking the pod status.
+* **Log analysis**: Use logs to pinpoint issues.
+* **Interactive commands**: Execute shell commands inside containers for deeper insights.
+* **Ephemeral debugging**: Attach temporary containers to troubleshoot without disrupting workloads.
+
+== Additional resources
+
+For further details on debugging pods, consult the official Kubernetes documentation:
+
+* link:https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/[Debug Running Pods]
