@@ -52,7 +52,7 @@ ML/AI: 1
 
 After reviewing the code sample, I have the following suggestions for improvement:
 
-* **Limit the number of `needles`**: The current code restricts the length of the `needles` array to five. If this is a strict requirement, modify the message in the print statement within the `if` block to *"Use a maximum of five words!"*. This provides clearer guidance than *"Too many..."*.
+* **Limit the number of `needles`**: The current code restricts the length of the `needles` array to five. If this is a strict requirement, modify the message in the print statement within the `if` block to `"Use a maximum of five words!"`. This provides clearer guidance than `"Too many..."`.
 * **Assign `needles.length` to a variable**: Store `needles.length` in a variable to eliminate repeated evaluation of the same expression. This also improves memory efficiency.
 * **Optimize `haystack.split()`**: Move the following statement outside of the loop: `String[] words = haystack.split("[ \"\'\t\n\b\f\r]", 0);`. The `words` array does not change with each iteration, so splitting the `haystack` only once is more efficient.
 * **Improve readability**: In the third for loop, use `k` as the iterator variable, as `i` and `j` are already in use in nearby loops.
