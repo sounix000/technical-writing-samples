@@ -1,3 +1,0 @@
-= REST vs SOAP
-
-Lorem ipsum.
