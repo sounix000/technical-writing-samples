@@ -50,7 +50,7 @@ image::tic6.png[width=25%, height=25%, align=center]
 
 [TIP]
 ====
-You can use this tip at any move, provided your opponent is more than two steps away from wining.
+You can use this tactic at any move, provided your opponent is more than two steps away from wining.
 ====
 
 * If your opponent has already marked two consecutive cells, block the third cell in that line. Remember, once your opponent marks three consecutive cells, the game is over.
