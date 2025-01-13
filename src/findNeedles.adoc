@@ -24,8 +24,8 @@ This class provides functionality to search for multiple needle strings within a
 
 * **Type**: `public static`
 * **Parameters**:
-  * `String haystack`: The text within which to search for the needles.
-  * `String[] needles`: An array of strings representing the words (needles) to be counted in the haystack.
+  ** `String haystack`: The text within which to search for the needles.
+  ** `String[] needles`: An array of strings representing the words (needles) to be counted in the haystack.
 * **Returns**: `void` (prints results to the console)
 * **Usage**: This method prints the number of times each string in the `needles` array appears in the `haystack` string.
 
