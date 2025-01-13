@@ -4,6 +4,8 @@
 :pdf-page-size: Letter
 :sectnums!:
 :experimental:
+:source-highlighter: pygments
+:pygments-style: oscar
 
 toc::[]
 
