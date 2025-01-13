@@ -42,7 +42,7 @@ REST (Representational State Transfer) is an architectural style that leverages 
 
 * Use URLs to represent resources.
 * Support multiple data formats, including JSON, XML, and HTML.
-* Implement HTTP methods such as GET, POST, PUT, DELETE, PATCH, and more.
+* Implement HTTP methods such as `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, and more.
 * Can mark responses as cacheable, reducing client-server interactions.
 
 Tools and frameworks can generate REST APIs and documentation from application code, enabling rapid development.
