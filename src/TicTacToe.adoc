@@ -16,7 +16,7 @@ toc::[]
 
 Tic-Tac-Toe is a simple and fun game that you can play anywhere. To play, you need a `3x3` grid and an opponent. You can also practice against yourself or a computer and surprise your friends with your unbeatable skills.
 
-image::tic1.png[width=25%, height=25%, align=left]
+image::tic1.png[width=25%, height=25%, align=center]
 
 == Rules
 The rules of the game are as follows:
@@ -25,7 +25,7 @@ The rules of the game are as follows:
 
 * On your turn, place your symbol in any vacant cell in the `3x3` grid. The first player can place their symbol in any of the nine cells.
 
-image::tic2.png[width=25%, height=25%, align=left]
+image::tic2.png[width=25%, height=25%, align=center]
 
 * The goal is to mark three consecutive cells in a straight line. This can be horizontal, vertical, or diagonal. _The first player to mark three consecutive cells **wins** the game_.
 * _If neither player marks three consecutive cells before the grid is full, the game ends in a **draw**_.
