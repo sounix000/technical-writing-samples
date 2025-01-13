@@ -16,7 +16,8 @@ toc::[]
 Tic-Tac-Toe is a simple and fun game that you can play anywhere. To play, you need a `3x3` grid and an opponent. You can also practice against yourself or a computer and surprise your friends with your unbeatable skills.
 
 image::tic1.png[]
-//image::{docdir}/images/tic1.png[]
+image::tic1.png[width=33%, height=33%]
+image::{docdir}/images/tic1.png[]
 
 
 == Rules
