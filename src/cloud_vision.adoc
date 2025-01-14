@@ -1,1 +1,239 @@
-= Lorem ipsum
+= Interacting with Google Cloud Storage and Vision API using Python
+:toc: macro
+:doctype: article
+:pdf-page-size: Letter
+:sectnums!:
+:experimental:
+:source-highlighter: pygments
+:pygments-style: oscar
+:pdf-themesdir: {docdir}
+:imagesdir: {docdir}/images
+:nofooter:
+
+toc::[]
+
+---
+
+== Overview
+
+This tutorial illustrates how to programmatically interact with Google Cloud Platform's (GCP) Storage and Vision APIs, using Python `3.x` and other relevant tools. You will learn how to:
+
+* Configure various products and services of GCP
+* Set up the project with appropriate structure
+* Create a Python script for interacting with the APIs
+
+In addition, this tutorial also hints at a few ideas for extending the project.
+
+Python developers can use the tutorial as a guide for the following:
+
+* A starting point for exploring GCP's features and capabilities
+* Integrating GCP products and services with their applications
+
+== Prerequisites
+
+To maximize the learning experience, familiarity with the following is recommended:
+
+* Development using Python `3.x`
+* Common Linux commands 
+* SDKs and libraries
+
+Prior experience with cloud platforms is not necessary, but definitely helpful.
+
+**Estimated time to complete:** 1 hour
+
+== Using GCP products
+
+In this tutorial, you will use the following GCP products within the link:https://cloud.google.com/free/docs/gcp-free-tier[*free tier limits*]:
+
+* link:https://cloud.google.com/storage?hl=en[Google Cloud Storage]: Store assets and objects for your applications.
+* link:https://cloud.google.com/vision?hl=en[Google Vision API]: Use Google's pre-trained computer vision models for common image-based applications.
+* link:https://cloud.google.com/apis/docs/cloud-client-libraries[Google Cloud Client Libraries]: Develop application using client libraries for your chosen programming language.
+* link:https://cloud.google.com/sdk?hl=en[Google Cloud SDK]: Deploy and manage applications using command-line tools.
+
+== Configuring Google Cloud
+
+To set up your project, resources, and APIs in Google Cloud Platform:
+
+1. Sign in to link:https://cloud.google.com/[Google Cloud Platform] using your link:https://www.google.com/account/about/[Google Account] credentials.
+2. Create a new project and note the *Project ID*.
+3. Create a storage bucket for the project and set the following permissions:
+   - Public access to `allUsers`.
+   - Access control to `Uniform`.
+
+   [TIP]
+   ====
+   Learn about bucket-level permissions at: https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable.
+   ====
+
+4. Enable the Vision API for your project.
+
+[WARNING]
+====
+Setting public permissions exposes your bucket to unrestricted access. Avoid this in production environments.
+====
+
+== Setting Up the Project
+
+=== Prerequisites
+
+Ensure Python 3.x and `pip` are installed on your system. Upgrade `pip` if necessary:
+
+```
+$ python --version
+$ pip --version
+$ pip install --upgrade pip
+```
+
+=== Creating a Development Environment
+
+1. Create a project directory and navigate to it:
+
+```
+$ mkdir PROJECT_DIRECTORY
+$ cd PROJECT_DIRECTORY
+```
+
+2. Set up a virtual environment:
+
+```
+$ pip install --upgrade virtualenv
+$ virtualenv VIRTUALENV_NAME
+$ source VIRTUALENV_NAME/bin/activate
+```
+
+[INFO]
+====
+Your terminal prompt will change to indicate you're within the virtual environment.
+====
+
+=== Installing Google Cloud SDK
+
+1. Install the Cloud SDK for your operating system. Accept default options during installation.
+2. Initialize the project:
+
+```
+$ gcloud init
+```
+
+=== Installing Client Libraries
+
+Install the Storage and Vision client libraries:
+
+```
+$ pip install --upgrade google-cloud-storage google-cloud-vision
+```
+
+== Configuring Authentication
+
+1. Create a service account:
+
+```
+$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME
+```
+
+2. Grant permissions to the service account:
+
+```
+$ gcloud projects add-iam-policy-binding PROJECT_ID \\
+  --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com" \\
+  --role="roles/owner"
+```
+
+3. Generate a key file:
+
+```
+$ gcloud iam service-accounts keys create KEY_FILE.json \\
+  --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com
+```
+
+4. Set the authentication credentials:
+
+```
+$ export GOOGLE_APPLICATION_CREDENTIALS="KEY_FILE.json"
+```
+
+[NOTE]
+====
+The environment variable is valid only for the current shell session. Reset it after restarting the shell.
+====
+
+=== Example Project Structure
+
+```
+PROJECT_DIRECTORY
+├── VIRTUALENV_NAME/
+├── IMAGE_DIRECTORY/
+│   ├── image1.png
+│   ├── image2.jpg
+│   ├── image3.jpeg
+├── KEY_FILE.json
+├── main.py
+```
+
+== Creating a Python Script
+
+Develop a script that:
+
+1. Accepts a directory containing images.
+2. Uploads images to the Cloud Storage bucket.
+3. Uses the Vision API to extract landmark information from each image.
+
+
+=== Sample Code
+
+```python
+from google.cloud import storage, vision
+import os
+
+def get_image_names(image_dir):
+    \"\"\"Returns a list of absolute paths of images.\"\"\"
+    return [os.path.abspath(os.path.join(image_dir, file)) for file in os.listdir(image_dir)]
+
+def upload_landmark_images(bucket_name, image_paths):
+    \"\"\"Uploads images and returns their Cloud Storage URIs.\"\"\"
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    uris = []
+    for path in image_paths:
+        blob = bucket.blob(os.path.basename(path))
+        blob.upload_from_filename(path)
+        uris.append(f"gs://{bucket_name}/{os.path.basename(path)}")
+    return uris
+
+def get_landmark_information(image_uris):
+    \"\"\"Extracts and prints landmark information.\"\"\"
+    client = vision.ImageAnnotatorClient()
+    for uri in image_uris:
+        image = vision.Image(source={"image_uri": uri})
+        response = client.landmark_detection(image=image)
+        print(f"\\nIMAGE: {uri}")
+        for landmark in response.landmark_annotations:
+            print(f"Landmark: {landmark.description}, Confidence: {landmark.score}")
+
+# Main script
+if __name__ == "__main__":
+    image_dir = input("Enter the image directory: ")
+    bucket_name = input("Enter the bucket name: ")
+    images = get_image_names(image_dir)
+    uris = upload_landmark_images(bucket_name, images)
+    get_landmark_information(uris)
+```
+
+== Extending the Project
+
+Consider adding these features:
+
+- Use the Google Maps API to get landmark names.
+- Store URLs in Cloud SQL.
+- Build a REST API using Flask.
+- Deploy to Google App Engine.
+- Implement user authentication with OAuth2.
+
+[IMPORTANT]
+====
+If you're no longer developing, delete the project to avoid incurring charges:
+
+```
+$ gcloud projects delete PROJECT_ID
+```
+====

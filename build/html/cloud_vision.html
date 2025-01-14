@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Lorem ipsum</title>
+<title>Interacting with Google Cloud Storage and Vision API using Python</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -433,17 +433,538 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre.pygments .hll { background-color: #ffffcc }
+pre.pygments { background: #f8f8f8; }
+pre.pygments .tok-c { color: #3D7B7B; font-style: italic } /* Comment */
+pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+pre.pygments .tok-o { color: #666666 } /* Operator */
+pre.pygments .tok-ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+pre.pygments .tok-cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+pre.pygments .tok-cp { color: #9C6500 } /* Comment.Preproc */
+pre.pygments .tok-cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+pre.pygments .tok-c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+pre.pygments .tok-cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
+pre.pygments .tok-ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+pre.pygments .tok-gr { color: #E40000 } /* Generic.Error */
+pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+pre.pygments .tok-gi { color: #008400 } /* Generic.Inserted */
+pre.pygments .tok-go { color: #717171 } /* Generic.Output */
+pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+pre.pygments .tok-m { color: #666666 } /* Literal.Number */
+pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
+pre.pygments .tok-na { color: #687822 } /* Name.Attribute */
+pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
+pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+pre.pygments .tok-no { color: #880000 } /* Name.Constant */
+pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+pre.pygments .tok-ni { color: #717171; font-weight: bold } /* Name.Entity */
+pre.pygments .tok-ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
+pre.pygments .tok-nl { color: #767600 } /* Name.Label */
+pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
+pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+pre.pygments .tok-se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+pre.pygments .tok-si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+pre.pygments .tok-sr { color: #A45A77 } /* Literal.String.Regex */
+pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article">
 <div id="header">
-<h1>Lorem ipsum</h1>
+<h1>Interacting with Google Cloud Storage and Vision API using Python</h1>
 </div>
 <div id="content">
-
+<div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_prerequisites">Prerequisites</a></li>
+<li><a href="#_using_gcp_products">Using GCP products</a></li>
+<li><a href="#_configuring_google_cloud">Configuring Google Cloud</a></li>
+<li><a href="#_setting_up_the_project">Setting Up the Project</a>
+<ul class="sectlevel2">
+<li><a href="#_prerequisites_2">Prerequisites</a></li>
+<li><a href="#_creating_a_development_environment">Creating a Development Environment</a></li>
+<li><a href="#_installing_google_cloud_sdk">Installing Google Cloud SDK</a></li>
+<li><a href="#_installing_client_libraries">Installing Client Libraries</a></li>
+</ul>
+</li>
+<li><a href="#_configuring_authentication">Configuring Authentication</a>
+<ul class="sectlevel2">
+<li><a href="#_example_project_structure">Example Project Structure</a></li>
+</ul>
+</li>
+<li><a href="#_creating_a_python_script">Creating a Python Script</a>
+<ul class="sectlevel2">
+<li><a href="#_sample_code">Sample Code</a></li>
+</ul>
+</li>
+<li><a href="#_extending_the_project">Extending the Project</a></li>
+</ul>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2025-01-14 01:13:24 +0530
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial illustrates how to programmatically interact with Google Cloud Platform&#8217;s (GCP) Storage and Vision APIs, using Python <code>3.x</code> and other relevant tools. You will learn how to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Configure various products and services of GCP</p>
+</li>
+<li>
+<p>Set up the project with appropriate structure</p>
+</li>
+<li>
+<p>Create a Python script for interacting with the APIs</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition, this tutorial also hints at a few ideas for extending the project.</p>
+</div>
+<div class="paragraph">
+<p>Python developers can use the tutorial as a guide for the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A starting point for exploring GCP&#8217;s features and capabilities</p>
+</li>
+<li>
+<p>Integrating GCP products and services with their applications</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites">Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To maximize the learning experience, familiarity with the following is recommended:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Development using Python <code>3.x</code></p>
+</li>
+<li>
+<p>Common Linux commands</p>
+</li>
+<li>
+<p>SDKs and libraries</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Prior experience with cloud platforms is not necessary, but definitely helpful.</p>
+</div>
+<div class="paragraph">
+<p><strong>Estimated time to complete:</strong> 1 hour</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_gcp_products">Using GCP products</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, you will use the following GCP products within the <a href="https://cloud.google.com/free/docs/gcp-free-tier"><strong>free tier limits</strong></a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://cloud.google.com/storage?hl=en">Google Cloud Storage</a>: Store assets and objects for your applications.</p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/vision?hl=en">Google Vision API</a>: Use Google&#8217;s pre-trained computer vision models for common image-based applications.</p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/apis/docs/cloud-client-libraries">Google Cloud Client Libraries</a>: Develop application using client libraries for your chosen programming language.</p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/sdk?hl=en">Google Cloud SDK</a>: Deploy and manage applications using command-line tools.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_google_cloud">Configuring Google Cloud</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up your project, resources, and APIs in Google Cloud Platform:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to <a href="https://cloud.google.com/">Google Cloud Platform</a> using your <a href="https://www.google.com/account/about/">Google Account</a> credentials.</p>
+</li>
+<li>
+<p>Create a new project and note the <strong>Project ID</strong>.</p>
+</li>
+<li>
+<p>Create a storage bucket for the project and set the following permissions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Public access to <code>allUsers</code>.</p>
+</li>
+<li>
+<p>Access control to <code>Uniform</code>.</p>
+<div class="literalblock">
+<div class="content">
+<pre>[TIP]
+====
+Learn about bucket-level permissions at: https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable.
+====</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enable the Vision API for your project.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Setting public permissions exposes your bucket to unrestricted access. Avoid this in production environments.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setting_up_the_project">Setting Up the Project</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisites_2">Prerequisites</h3>
+<div class="paragraph">
+<p>Ensure Python 3.x and <code>pip</code> are installed on your system. Upgrade <code>pip</code> if necessary:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ python --version
+$ pip --version
+$ pip install --upgrade pip</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_development_environment">Creating a Development Environment</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a project directory and navigate to it:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ mkdir PROJECT_DIRECTORY
+$ cd PROJECT_DIRECTORY</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set up a virtual environment:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ pip install --upgrade virtualenv
+$ virtualenv VIRTUALENV_NAME
+$ source VIRTUALENV_NAME/bin/activate</code></pre>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Your terminal prompt will change to indicate you&#8217;re within the virtual environment.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_google_cloud_sdk">Installing Google Cloud SDK</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the Cloud SDK for your operating system. Accept default options during installation.</p>
+</li>
+<li>
+<p>Initialize the project:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ gcloud init</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_client_libraries">Installing Client Libraries</h3>
+<div class="paragraph">
+<p>Install the Storage and Vision client libraries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ pip install --upgrade google-cloud-storage google-cloud-vision</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_authentication">Configuring Authentication</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a service account:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Grant permissions to the service account:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ gcloud projects add-iam-policy-binding PROJECT_ID \\
+  --member=&quot;serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com&quot; \\
+  --role=&quot;roles/owner&quot;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Generate a key file:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ gcloud iam service-accounts keys create KEY_FILE.json \\
+  --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the authentication credentials:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ export GOOGLE_APPLICATION_CREDENTIALS=&quot;KEY_FILE.json&quot;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The environment variable is valid only for the current shell session. Reset it after restarting the shell.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_project_structure">Example Project Structure</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>PROJECT_DIRECTORY
+├── VIRTUALENV_NAME/
+├── IMAGE_DIRECTORY/
+│   ├── image1.png
+│   ├── image2.jpg
+│   ├── image3.jpeg
+├── KEY_FILE.json
+├── main.py</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_a_python_script">Creating a Python Script</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Develop a script that:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Accepts a directory containing images.</p>
+</li>
+<li>
+<p>Uploads images to the Cloud Storage bucket.</p>
+</li>
+<li>
+<p>Uses the Vision API to extract landmark information from each image.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_sample_code">Sample Code</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">from</span> <span class="tok-nn">google.cloud</span> <span class="tok-kn">import</span> <span class="tok-n">storage</span><span class="tok-p">,</span> <span class="tok-n">vision</span>
+<span class="tok-kn">import</span> <span class="tok-nn">os</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">):</span>
+    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Returns a list of absolute paths of images.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
+    <span class="tok-k">return</span> <span class="tok-p">[</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">abspath</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">join</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">))</span> <span class="tok-k">for</span> <span class="tok-n">file</span> <span class="tok-ow">in</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">listdir</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)]</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_paths</span><span class="tok-p">):</span>
+    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Uploads images and returns their Cloud Storage URIs.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
+    <span class="tok-n">client</span> <span class="tok-o">=</span> <span class="tok-n">storage</span><span class="tok-o">.</span><span class="tok-n">Client</span><span class="tok-p">()</span>
+    <span class="tok-n">bucket</span> <span class="tok-o">=</span> <span class="tok-n">client</span><span class="tok-o">.</span><span class="tok-n">bucket</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">)</span>
+    <span class="tok-n">uris</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
+    <span class="tok-k">for</span> <span class="tok-n">path</span> <span class="tok-ow">in</span> <span class="tok-n">image_paths</span><span class="tok-p">:</span>
+        <span class="tok-n">blob</span> <span class="tok-o">=</span> <span class="tok-n">bucket</span><span class="tok-o">.</span><span class="tok-n">blob</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">basename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">))</span>
+        <span class="tok-n">blob</span><span class="tok-o">.</span><span class="tok-n">upload_from_filename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">)</span>
+        <span class="tok-n">uris</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;gs://</span><span class="tok-si">{</span><span class="tok-n">bucket_name</span><span class="tok-si">}</span><span class="tok-s2">/</span><span class="tok-si">{</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">basename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">)</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
+    <span class="tok-k">return</span> <span class="tok-n">uris</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">image_uris</span><span class="tok-p">):</span>
+    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Extracts and prints landmark information.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
+    <span class="tok-n">client</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">ImageAnnotatorClient</span><span class="tok-p">()</span>
+    <span class="tok-k">for</span> <span class="tok-n">uri</span> <span class="tok-ow">in</span> <span class="tok-n">image_uris</span><span class="tok-p">:</span>
+        <span class="tok-n">image</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">Image</span><span class="tok-p">(</span><span class="tok-n">source</span><span class="tok-o">=</span><span class="tok-p">{</span><span class="tok-s2">&quot;image_uri&quot;</span><span class="tok-p">:</span> <span class="tok-n">uri</span><span class="tok-p">})</span>
+        <span class="tok-n">response</span> <span class="tok-o">=</span> <span class="tok-n">client</span><span class="tok-o">.</span><span class="tok-n">landmark_detection</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-o">=</span><span class="tok-n">image</span><span class="tok-p">)</span>
+        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;</span><span class="tok-se">\\</span><span class="tok-s2">nIMAGE: </span><span class="tok-si">{</span><span class="tok-n">uri</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
+        <span class="tok-k">for</span> <span class="tok-n">landmark</span> <span class="tok-ow">in</span> <span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-n">landmark_annotations</span><span class="tok-p">:</span>
+            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;Landmark: </span><span class="tok-si">{</span><span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">description</span><span class="tok-si">}</span><span class="tok-s2">, Confidence: </span><span class="tok-si">{</span><span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">score</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
+
+<span class="tok-c1"># Main script</span>
+<span class="tok-k">if</span> <span class="tok-vm">__name__</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;__main__&quot;</span><span class="tok-p">:</span>
+    <span class="tok-n">image_dir</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s2">&quot;Enter the image directory: &quot;</span><span class="tok-p">)</span>
+    <span class="tok-n">bucket_name</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s2">&quot;Enter the bucket name: &quot;</span><span class="tok-p">)</span>
+    <span class="tok-n">images</span> <span class="tok-o">=</span> <span class="tok-n">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)</span>
+    <span class="tok-n">uris</span> <span class="tok-o">=</span> <span class="tok-n">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">images</span><span class="tok-p">)</span>
+    <span class="tok-n">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">uris</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extending_the_project">Extending the Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Consider adding these features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the Google Maps API to get landmark names.</p>
+</li>
+<li>
+<p>Store URLs in Cloud SQL.</p>
+</li>
+<li>
+<p>Build a REST API using Flask.</p>
+</li>
+<li>
+<p>Deploy to Google App Engine.</p>
+</li>
+<li>
+<p>Implement user authentication with OAuth2.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you&#8217;re no longer developing, delete the project to avoid incurring charges:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ gcloud projects delete PROJECT_ID</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 </body>
