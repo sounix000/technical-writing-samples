@@ -548,7 +548,10 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial illustrates how to programmatically interact with Google Cloud Platform&#8217;s (GCP) Storage and Vision APIs, using Python <code>3.x</code> and other relevant tools. You will learn how to:</p>
+<p>This tutorial illustrates how to programmatically interact with Google Cloud Platform&#8217;s (GCP) Storage and Vision APIs, using Python <code>3.x</code> and other relevant tools. The project primarily involves <strong>automated detection of landmarks</strong> in images of various locations, using the Google Cloud Storage and Vision APIs.</p>
+</div>
+<div class="paragraph">
+<p>In this tutorial, you will learn how to:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -561,13 +564,13 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li>
 <p>Create a Python script for interacting with the APIs</p>
 </li>
+<li>
+<p>Extend the project using various GCP offerings.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
-<p>In addition, this tutorial also hints at a few ideas for extending the project.</p>
-</div>
-<div class="paragraph">
-<p>Python developers can use the tutorial as a guide for the following:</p>
+<p>Python developers can use the tutorial as a guide for the following purposes:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -578,6 +581,20 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>Integrating GCP products and services with their applications</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All user replaceable values in the tutorial are in <code>UPPERCASE_CODE_FONT</code>. While executing, replace them with actual values.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -601,10 +618,10 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </ul>
 </div>
 <div class="paragraph">
-<p>Prior experience with cloud platforms is not necessary, but definitely helpful.</p>
+<p>Prior experience with cloud platforms is not necessary, but definitely helpful. The tutorial contains links to relevant documentation for each product.</p>
 </div>
 <div class="paragraph">
-<p><strong>Estimated time to complete:</strong> 1 hour</p>
+<p>Estimated time to complete: <strong>1 hour</strong></p>
 </div>
 </div>
 </div>
@@ -612,7 +629,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2 id="_using_gcp_products">Using GCP products</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial, you will use the following GCP products within the <a href="https://cloud.google.com/free/docs/gcp-free-tier"><strong>free tier limits</strong></a>:</p>
+<p>This tutorial uses the following GCP products within the <a href="https://cloud.google.com/free/docs/gcp-free-tier">free tier limits</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -647,30 +664,16 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>Create a new project and note the <strong>Project ID</strong>.</p>
 </li>
 <li>
-<p>Create a storage bucket for the project and set the following permissions:</p>
+<p>Create a <a href="https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-console">storage bucket</a> for the project and set the following <strong>Permissions</strong>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Public access to <code>allUsers</code>.</p>
+<p><a href="https://cloud.google.com/storage/docs/access-control/making-data-public#buckets">Public access</a> to <code>allUsers</code>.</p>
 </li>
 <li>
-<p>Access control to <code>Uniform</code>.</p>
-<div class="literalblock">
-<div class="content">
-<pre>[TIP]
-====
-Learn about bucket-level permissions at: https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable.
-====</pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Enable the Vision API for your project.</p>
-</li>
-</ol>
+<p><a href="https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable">Access control</a> to <code>Uniform</code>.</p>
+<div class="paragraph">
+<p>In addition, note the name of the bucket.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -685,6 +688,29 @@ Learn about bucket-level permissions at: https://cloud.google.com/storage/docs/u
 </td>
 </tr>
 </table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://cloud.google.com/vision/docs/drag-and-drop">Try</a> the Vision API, then <a href="https://cloud.google.com/vision/docs/setup#api">enable</a> it for your project.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When enabling the Vision API using the Google Cloud Console, <em>do not</em> generate any authorization credentials. In the next section, we generate the authentication credentials using the <code>gcloud</code> command-line utility.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>

@@ -16,18 +16,24 @@ toc::[]
 
 == Overview
 
-This tutorial illustrates how to programmatically interact with Google Cloud Platform's (GCP) Storage and Vision APIs, using Python `3.x` and other relevant tools. You will learn how to:
+This tutorial illustrates how to programmatically interact with Google Cloud Platform's (GCP) Storage and Vision APIs, using Python `3.x` and other relevant tools. The project primarily involves *automated detection of landmarks* in images of various locations, using the Google Cloud Storage and Vision APIs.
+
+In this tutorial, you will learn how to:
 
 * Configure various products and services of GCP
 * Set up the project with appropriate structure
 * Create a Python script for interacting with the APIs
+* Extend the project using various GCP offerings.
 
-In addition, this tutorial also hints at a few ideas for extending the project.
-
-Python developers can use the tutorial as a guide for the following:
+Python developers can use the tutorial as a guide for the following purposes:
 
 * A starting point for exploring GCP's features and capabilities
 * Integrating GCP products and services with their applications
+
+[NOTE]
+====
+All user replaceable values in the tutorial are in `UPPERCASE_CODE_FONT`. While executing, replace them with actual values.
+====
 
 == Prerequisites
 
@@ -37,13 +43,13 @@ To maximize the learning experience, familiarity with the following is recommend
 * Common Linux commands 
 * SDKs and libraries
 
-Prior experience with cloud platforms is not necessary, but definitely helpful.
+Prior experience with cloud platforms is not necessary, but definitely helpful. The tutorial contains links to relevant documentation for each product.
 
-**Estimated time to complete:** 1 hour
+Estimated time to complete: *1 hour*
 
 == Using GCP products
 
-In this tutorial, you will use the following GCP products within the link:https://cloud.google.com/free/docs/gcp-free-tier[*free tier limits*]:
+This tutorial uses the following GCP products within the link:https://cloud.google.com/free/docs/gcp-free-tier[free tier limits]:
 
 * link:https://cloud.google.com/storage?hl=en[Google Cloud Storage]: Store assets and objects for your applications.
 * link:https://cloud.google.com/vision?hl=en[Google Vision API]: Use Google's pre-trained computer vision models for common image-based applications.
@@ -55,22 +61,29 @@ In this tutorial, you will use the following GCP products within the link:https:
 To set up your project, resources, and APIs in Google Cloud Platform:
 
 1. Sign in to link:https://cloud.google.com/[Google Cloud Platform] using your link:https://www.google.com/account/about/[Google Account] credentials.
+
 2. Create a new project and note the *Project ID*.
-3. Create a storage bucket for the project and set the following permissions:
-   - Public access to `allUsers`.
-   - Access control to `Uniform`.
 
-   [TIP]
-   ====
-   Learn about bucket-level permissions at: https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable.
-   ====
-
-4. Enable the Vision API for your project.
-
+3. Create a link:https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-console[storage bucket] for the project and set the following *Permissions*:
+   - link:https://cloud.google.com/storage/docs/access-control/making-data-public#buckets[Public access] to `allUsers`.
+   - link:https://cloud.google.com/storage/docs/using-uniform-bucket-level-access#enable[Access control] to `Uniform`.
++
+In addition, note the name of the bucket.
++
 [WARNING]
 ====
 Setting public permissions exposes your bucket to unrestricted access. Avoid this in production environments.
 ====
++
+
+4. link:https://cloud.google.com/vision/docs/drag-and-drop[Try] the Vision API, then link:https://cloud.google.com/vision/docs/setup#api[enable] it for your project.
++
+[NOTE]
+====
+When enabling the Vision API using the Google Cloud Console, _do not_ generate any authorization credentials. In the next section, we generate the authentication credentials using the `gcloud` command-line utility.
+====
+
+
 
 == Setting Up the Project
 
