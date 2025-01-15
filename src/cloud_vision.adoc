@@ -15,7 +15,6 @@ toc::[]
 ---
 
 == Overview
-
 This tutorial illustrates how to programmatically interact with Google Cloud Platform's (GCP) Storage and Vision APIs, using Python `3.x` and other relevant tools on your local machine. Python developers can use the tutorial as a guide for the following purposes:
 
 * Exploring and testing GCP's features and capabilities
@@ -36,7 +35,6 @@ The tutorial involves *automated detection of landmarks* in images of various lo
 ====
 
 == Prerequisites
-
 To maximize the learning experience, familiarity with the following is recommended:
 
 * Development using Python `3.x`
@@ -48,7 +46,6 @@ Prior experience with cloud platforms is not necessary, but definitely helpful. 
 Estimated time to complete: *1 hour*
 
 == Using GCP products
-
 This tutorial uses the following GCP products within the link:https://cloud.google.com/free/docs/gcp-free-tier[free tier limits]:
 
 * link:https://cloud.google.com/storage?hl=en[Google Cloud Storage]: Store assets and objects for your applications.
@@ -57,7 +54,6 @@ This tutorial uses the following GCP products within the link:https://cloud.goog
 * link:https://cloud.google.com/sdk?hl=en[Google Cloud SDK]: Deploy and manage applications using command-line tools.
 
 == Configuring Google Cloud
-
 To set up your project, resources, and APIs in Google Cloud Platform:
 
 1. Sign in to link:https://cloud.google.com/[Google Cloud Platform] using your link:https://www.google.com/account/about/[Google Account] credentials.
@@ -74,7 +70,6 @@ In addition, note the name of the bucket.
 ====
 Setting public permissions exposes your bucket to unrestricted access. Avoid this in production environments.
 ====
-+
 
 4. link:https://cloud.google.com/vision/docs/drag-and-drop[Try] the Vision API, then link:https://cloud.google.com/vision/docs/setup#api[enable] it for your project.
 +
@@ -84,14 +79,12 @@ Do not generate authorization credentials when enabling the Vision API using the
 ====
 
 == Setting up the project
-
 Create a development environment on your local machine with all necessary packages, Cloud SDK, and client libraries.
 
 === Creating a development environment
-
 1. Ensure Python 3.x and `pip3` are installed on your system, and upgrade `pip` if necessary:
 +
-[source, bash]
+[source,shell]
 ----
 $ python3 --version
 $ pip3 --version
@@ -100,7 +93,7 @@ $ pip3 install --upgrade pip
 
 2. Create a project directory and navigate to it:
 +
-[source, bash]
+[source,shell]
 ----
 $ mkdir PROJECT_DIRECTORY
 $ cd PROJECT_DIRECTORY
@@ -108,7 +101,7 @@ $ cd PROJECT_DIRECTORY
 
 3. Set up a virtual environment:
 +
-[source, bash]
+[source,shell]
 ----
 $ pip3 install --upgrade virtualenv
 $ virtualenv VIRTUALENV_NAME
@@ -118,12 +111,11 @@ $ source VIRTUALENV_NAME/bin/activate
 Your terminal prompt will change to indicate you are within the virtual environment.
 
 === Installing Google Cloud SDK
-
 1. Install the link:https://cloud.google.com/sdk/docs/install[Cloud SDK] for your operating system. Accept default options during installation.
 
 2. Initialize the project:
 +
-[source, bash]
+[source,shell]
 ----
 $ gcloud init
 ----
@@ -131,24 +123,23 @@ $ gcloud init
 When the program prompts, provide inputs that are relevant to the project.
 
 === Installing and configuring client libraries
-
 1. Install the Storage and Vision client libraries for Python:
 +
-[source, bash]
+[source,shell]
 ----
 $ pip3 install --upgrade google-cloud-storage google-cloud-vision
 ----
 
 2. Create a service account:
 +
-[source, bash]
+[source,shell]
 ----
 $ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME
 ----
 
 3. Grant permissions to the service account:
 +
-[source, bash]
+[source,shell]
 ----
 $ gcloud projects add-iam-policy-binding PROJECT_ID \
   --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com" \
@@ -157,7 +148,7 @@ $ gcloud projects add-iam-policy-binding PROJECT_ID \
 
 4. Generate a key file:
 +
-[source, bash]
+[source,shell]
 ----
 $ gcloud iam service-accounts keys create KEY_FILE.json \
   --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com
@@ -172,21 +163,20 @@ Ensure that the private key in the `KEY_FILE.json` file is unavailable to the pu
 
     . Append the following line to `~/.bashrc` (or your shell's equivalent):
 +
-[source,bash]
+[source,shell]
 ----
 $ export GOOGLE_APPLICATION_CREDENTIALS="PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json"
 ----
 
     . Source the file to make the changes effective:
 +
-[source, bash]
+[source,shell]
 ----
 $ source ~/.bashrc
 ----
 
 == Creating a Python script
-
-Develop a script that:
+Write a Python script that performs the following tasks:
 
 1. Accepts a directory containing images of famous landmarks.
 2. Uploads images to the Cloud Storage bucket.
@@ -195,7 +185,6 @@ Develop a script that:
     . Prints some information of common interest (for example, description and location of the landmark). 
 
 === Project structure
-
 To complete the project structure, create the following:
 
 * A directory containing images of landmarks.
@@ -226,10 +215,9 @@ To complete the project structure, create the following:
 ----
 
 === Sample code in `main.py`
-
 In the `main.py` file, write code which is similar to the following sample:
 
-[source, python]
+[source,python]
 ----
 # Import dependencies
 from __future__ import print_function
@@ -294,10 +282,9 @@ print('\n\n')
 ----
 
 === Running the script
-
 Run the `main.py` file. In the terminal, you will see an output similar to the following:
 
-[source, bash]
+[source,shell]
 ----
 $ python3 main.py 
 
@@ -344,7 +331,6 @@ Detection confidence score: 0.4865312874317169
 ----
 
 == Extending the project
-
 You can extend the project by using the following offerings from GCP:
 
 * Use the link:https://developers.google.com/maps/documentation/geocoding/start#reverse[Google Maps API] to get the names of the landmark locations.
@@ -352,19 +338,8 @@ You can extend the project by using the following offerings from GCP:
 * Use link:https://cloud.google.com/appengine/docs/standard/python3/building-app/deploying-web-service[Google App Engine] to deploy the application.
 
 == Deleting the project
-
-If you discontinue development of the project:
-
-1. Delete the project to avoid incurring charges:
-+
-[source, bash]
+If you discontinue development, delete the project from GCP to avoid incurring charges:
+[source,shell]
 ----
 $ gcloud projects delete PROJECT_ID
-----
-
-2. Deactivate the virtual environment to return to the default terminal prompt::
-+
-[source, bash]
-----
-$ deactivate
 ----

@@ -35,7 +35,7 @@ image::tic3.png[width=20%, height=20%, align=center]
 
 image::tic4.png[width=20%, height=20%, align=center]
 
-== How to avoid losing
+== Winning strategies
 Tic-Tac-Toe is a zero-sum game, meaning that _if both players make the **best possible moves**, the game will always end in a **draw**_. Computer games are often programmed based on this principle. You can play these games to practice and improve your chances of not losing.
 
 The real fun is playing against human opponents because they are prone to making mistakes. _You can **win** or force a **draw** if you follow these strategies_:
@@ -50,7 +50,7 @@ image::tic6.png[width=20%, height=20%, align=center]
 
 [TIP]
 ====
-You can use this tactic at any move, provided your opponent is more than two steps away from wining.
+You can use this tactic at any move, provided your opponent is two or more steps away from wining.
 ====
 
 * If your opponent has already marked two consecutive cells, block the third cell in that line. Remember, once your opponent marks three consecutive cells, the game is over.

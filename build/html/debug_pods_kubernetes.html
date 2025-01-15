@@ -516,8 +516,8 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div id="toc" class="toc">
 <div id="toctitle" class="title">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
 <li><a href="#_prerequisites">Prerequisites</a></li>
-<li><a href="#_what_youll_learn">What you&#8217;ll learn</a></li>
 <li><a href="#_debug_pods_in_a_kubernetes_cluster">Debug pods in a Kubernetes cluster</a>
 <ul class="sectlevel2">
 <li><a href="#_step_1_check_pod_status">Step 1: Check pod status</a></li>
@@ -530,8 +530,35 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </ul>
 </div>
 <hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Pods are the smallest deployable units in Kubernetes. Their health is critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.</p>
+<p>Pods are the smallest deployable units in Kubernetes and critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.</p>
+</div>
+<div class="paragraph">
+<p>This article helps Kubernetes cluster administrators and developers diagnose and troubleshoot pod issues. After reading, you will be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inspect pod status in a cluster.</p>
+</li>
+<li>
+<p>Analyze logs for debugging.</p>
+</li>
+<li>
+<p>Execute shell commands within containers.</p>
+</li>
+<li>
+<p>Use ephemeral containers for interactive debugging.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Estimated time: <strong>30 minutes</strong></p>
 </div>
 </div>
 </div>
@@ -539,44 +566,17 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2 id="_prerequisites">Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before starting, verify:</p>
+<p>Before starting, verify that you have:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Access to a Kubernetes cluster with running pods</p>
+<p>Access to a Kubernetes cluster with running pods.</p>
 </li>
 <li>
-<p>Sufficient permissions to execute <code>kubectl</code> commands</p>
+<p>Sufficient permissions to execute <code>kubectl</code> commands.</p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_what_youll_learn">What you&#8217;ll learn</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This guide helps Kubernetes cluster administrators and developers troubleshoot pod issues. After reading, you&#8217;ll be able to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Inspect pod status in a cluster</p>
-</li>
-<li>
-<p>Analyze logs for debugging</p>
-</li>
-<li>
-<p>Execute shell commands within containers</p>
-</li>
-<li>
-<p>Use ephemeral containers for interactive debugging</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Estimated time: 30 minutes</p>
 </div>
 </div>
 </div>
@@ -634,7 +634,12 @@ redis-master-58db8984f-xp4c8<span class="tok-w">            </span><span class="
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If a pod is stuck in <code>Pending</code> status, check cluster resource availability using <code>kubectl describe node</code>.</p>
+<p>If a pod is stuck in <code>Pending</code> status, check cluster resource availability running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>kubectl<span class="tok-w"> </span>describe<span class="tok-w"> </span>node<span class="tok-w"> </span>&lt;node-name&gt;</code></pre>
+</div>
 </div>
 </td>
 </tr>
@@ -646,13 +651,13 @@ redis-master-58db8984f-xp4c8<span class="tok-w">            </span><span class="
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open the Kubernetes dashboard</p>
+<p>Open the Kubernetes dashboard.</p>
 </li>
 <li>
-<p>Navigate to the Pods section</p>
+<p>Navigate to the <strong>Pods</strong> section.</p>
 </li>
 <li>
-<p>Select a pod to view its details</p>
+<p>Select a pod to view its details.</p>
 </li>
 </ol>
 </div>
@@ -923,7 +928,7 @@ root@redis-master-58db8984f-xp4c8:/#<span class="tok-w"> </span>top
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/">Debug running pods</a> in the Kubernetes documentation</p>
+<p><a href="https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/">Debug running pods</a> in the Kubernetes documentation.</p>
 </li>
 </ul>
 </div>

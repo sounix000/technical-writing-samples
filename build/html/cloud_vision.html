@@ -732,7 +732,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>Ensure Python 3.x and <code>pip3</code> are installed on your system, and upgrade <code>pip</code> if necessary:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>--version
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>--version
 $<span class="tok-w"> </span>pip3<span class="tok-w"> </span>--version
 $<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>pip</code></pre>
 </div>
@@ -742,7 +742,7 @@ $<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class=
 <p>Create a project directory and navigate to it:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>mkdir<span class="tok-w"> </span>PROJECT_DIRECTORY
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>mkdir<span class="tok-w"> </span>PROJECT_DIRECTORY
 $<span class="tok-w"> </span><span class="tok-nb">cd</span><span class="tok-w"> </span>PROJECT_DIRECTORY</code></pre>
 </div>
 </div>
@@ -751,7 +751,7 @@ $<span class="tok-w"> </span><span class="tok-nb">cd</span><span class="tok-w"> 
 <p>Set up a virtual environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>virtualenv
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>virtualenv
 $<span class="tok-w"> </span>virtualenv<span class="tok-w"> </span>VIRTUALENV_NAME
 $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
@@ -774,7 +774,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Initialize the project:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>init</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>init</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -792,7 +792,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Install the Storage and Vision client libraries for Python:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>google-cloud-storage<span class="tok-w"> </span>google-cloud-vision</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>google-cloud-storage<span class="tok-w"> </span>google-cloud-vision</code></pre>
 </div>
 </div>
 </li>
@@ -800,7 +800,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Create a service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>create<span class="tok-w"> </span>SERVICE_ACCOUNT_NAME</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>create<span class="tok-w"> </span>SERVICE_ACCOUNT_NAME</code></pre>
 </div>
 </div>
 </li>
@@ -808,7 +808,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Grant permissions to the service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>add-iam-policy-binding<span class="tok-w"> </span>PROJECT_ID<span class="tok-w"> </span><span class="tok-se">\</span>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>add-iam-policy-binding<span class="tok-w"> </span>PROJECT_ID<span class="tok-w"> </span><span class="tok-se">\</span>
 <span class="tok-w">  </span>--member<span class="tok-o">=</span><span class="tok-s2">&quot;serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com&quot;</span><span class="tok-w"> </span><span class="tok-se">\</span>
 <span class="tok-w">  </span>--role<span class="tok-o">=</span><span class="tok-s2">&quot;roles/owner&quot;</span></code></pre>
 </div>
@@ -818,7 +818,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Generate a key file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>keys<span class="tok-w"> </span>create<span class="tok-w"> </span>KEY_FILE.json<span class="tok-w"> </span><span class="tok-se">\</span>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>keys<span class="tok-w"> </span>create<span class="tok-w"> </span>KEY_FILE.json<span class="tok-w"> </span><span class="tok-se">\</span>
 <span class="tok-w">  </span>--iam-account<span class="tok-o">=</span>SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
 </div>
 </div>
@@ -845,7 +845,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Append the following line to <code>~/.bashrc</code> (or your shell&#8217;s equivalent):</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span><span class="tok-nb">export</span><span class="tok-w"> </span><span class="tok-nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="tok-o">=</span><span class="tok-s2">&quot;PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json&quot;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span><span class="tok-nb">export</span><span class="tok-w"> </span><span class="tok-nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="tok-o">=</span><span class="tok-s2">&quot;PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json&quot;</span></code></pre>
 </div>
 </div>
 </li>
@@ -853,7 +853,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Source the file to make the changes effective:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>~/.bashrc</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>~/.bashrc</code></pre>
 </div>
 </div>
 </li>
@@ -869,7 +869,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <h2 id="_creating_a_python_script">Creating a Python script</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Develop a script that:</p>
+<p>Write a Python script that performs the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1009,7 +1009,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>main.py
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>main.py
 
 Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>image<span class="tok-w"> </span>directory:<span class="tok-w"> </span>IMAGE_DIRECTORY
 Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>bucket<span class="tok-w"> </span>name:<span class="tok-w"> </span>BUCKET_NAME
@@ -1080,27 +1080,12 @@ Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score
 <h2 id="_deleting_the_project">Deleting the project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you discontinue development of the project:</p>
+<p>If you discontinue development, delete the project from GCP to avoid incurring charges:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Delete the project to avoid incurring charges:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>delete<span class="tok-w"> </span>PROJECT_ID</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>delete<span class="tok-w"> </span>PROJECT_ID</code></pre>
 </div>
-</div>
-</li>
-<li>
-<p>Deactivate the virtual environment to return to the default terminal prompt::</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>deactivate</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>

@@ -14,32 +14,28 @@ toc::[]
 
 ---
 
-Pods are the smallest deployable units in Kubernetes. Their health is critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.
+== Overview
+Pods are the smallest deployable units in Kubernetes and critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.
+
+This article helps Kubernetes cluster administrators and developers diagnose and troubleshoot pod issues. After reading, you will be able to:
+
+* Inspect pod status in a cluster.
+* Analyze logs for debugging.
+* Execute shell commands within containers.
+* Use ephemeral containers for interactive debugging.
+
+Estimated time: *30 minutes*
 
 == Prerequisites
+Before starting, verify that you have:
 
-Before starting, verify:
-
-* Access to a Kubernetes cluster with running pods
-* Sufficient permissions to execute `kubectl` commands
-
-== What you'll learn
-
-This guide helps Kubernetes cluster administrators and developers troubleshoot pod issues. After reading, you'll be able to:
-
-* Inspect pod status in a cluster
-* Analyze logs for debugging
-* Execute shell commands within containers
-* Use ephemeral containers for interactive debugging
-
-Estimated time: 30 minutes
+* Access to a Kubernetes cluster with running pods.
+* Sufficient permissions to execute `kubectl` commands.
 
 == Debug pods in a Kubernetes cluster
-
 The following sections describe common debugging techniques. Use these techniques sequentially or combine them based on your specific scenario.
 
 === Step 1: Check pod status
-
 Begin debugging by checking the status of your pods.
 
 To list all pods:
@@ -71,19 +67,23 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 
 [TIP]
 ====
-If a pod is stuck in `Pending` status, check cluster resource availability using `kubectl describe node`.
+If a pod is stuck in `Pending` status, check cluster resource availability running the following command:
+
+[source,shell]
+----
+$ kubectl describe node <node-name>
+----
 ====
 
 For a graphical interface, use the Kubernetes dashboard:
 
-1. Open the Kubernetes dashboard
-2. Navigate to the Pods section
-3. Select a pod to view its details
+1. Open the Kubernetes dashboard.
+2. Navigate to the *Pods* section.
+3. Select a pod to view its details.
 
 image::pods.png[title="Pod details in the Kubernetes dashboard"]
 
 === Step 2: Review pod logs
-
 Logs help identify what a container is doing or why it failed.
 
 To view logs from all containers in a pod:
@@ -127,7 +127,6 @@ $ kubectl logs <pod-name> --previous
 ====
 
 === Step 3: Execute container commands
-
 Inspect container state by running shell commands directly inside it.
 
 Syntax:
@@ -194,6 +193,7 @@ nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker proc
 [TIP]
 ====
 For containers that crash immediately, create a copy of the pod with a sleep command:
+
 [source,shell]
 ----
 $ kubectl debug <pod-name> --copy-to=<pod-name>-debug --container=<container-name> -- sleep 1d
@@ -255,7 +255,6 @@ $ kubectl get pod <pod-name> -o=jsonpath='{.spec.imagePullSecrets[0].name}'
 ====
 
 == Additional resources
-
 For more information about debugging pods, see:
 
-* link:https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/[Debug running pods] in the Kubernetes documentation
+* link:https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/[Debug running pods] in the Kubernetes documentation.
