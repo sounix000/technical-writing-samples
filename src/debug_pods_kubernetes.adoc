@@ -253,8 +253,3 @@ For pods with `ImagePullBackOff` status, verify image name and registry credenti
 $ kubectl get pod <pod-name> -o=jsonpath='{.spec.imagePullSecrets[0].name}'
 ----
 ====
-
-== Additional resources
-For more information about debugging pods, see:
-
-* link:https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/[Debug running pods] in the Kubernetes documentation.
