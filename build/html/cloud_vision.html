@@ -520,25 +520,22 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_prerequisites">Prerequisites</a></li>
 <li><a href="#_using_gcp_products">Using GCP products</a></li>
 <li><a href="#_configuring_google_cloud">Configuring Google Cloud</a></li>
-<li><a href="#_setting_up_the_project">Setting Up the Project</a>
+<li><a href="#_setting_up_the_project">Setting up the project</a>
 <ul class="sectlevel2">
-<li><a href="#_prerequisites_2">Prerequisites</a></li>
-<li><a href="#_creating_a_development_environment">Creating a Development Environment</a></li>
+<li><a href="#_creating_a_development_environment">Creating a development environment</a></li>
 <li><a href="#_installing_google_cloud_sdk">Installing Google Cloud SDK</a></li>
-<li><a href="#_installing_client_libraries">Installing Client Libraries</a></li>
+<li><a href="#_installing_and_configuring_client_libraries">Installing and configuring client libraries</a></li>
 </ul>
 </li>
-<li><a href="#_configuring_authentication">Configuring Authentication</a>
+<li><a href="#_creating_a_python_script">Creating a Python script</a>
 <ul class="sectlevel2">
-<li><a href="#_example_project_structure">Example Project Structure</a></li>
+<li><a href="#_project_structure">Project structure</a></li>
+<li><a href="#_sample_code_in_main_py">Sample code in <code>main.py</code></a></li>
+<li><a href="#_running_the_script">Running the script</a></li>
 </ul>
 </li>
-<li><a href="#_creating_a_python_script">Creating a Python Script</a>
-<ul class="sectlevel2">
-<li><a href="#_sample_code">Sample Code</a></li>
-</ul>
-</li>
-<li><a href="#_extending_the_project">Extending the Project</a></li>
+<li><a href="#_extending_the_project">Extending the project</a></li>
+<li><a href="#_discontinuing_the_project">Discontinuing the project</a></li>
 </ul>
 </div>
 <hr>
@@ -548,10 +545,20 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial illustrates how to programmatically interact with Google Cloud Platform&#8217;s (GCP) Storage and Vision APIs, using Python <code>3.x</code> and other relevant tools. The project primarily involves <strong>automated detection of landmarks</strong> in images of various locations, using the Google Cloud Storage and Vision APIs.</p>
+<p>This tutorial illustrates how to programmatically interact with Google Cloud Platform&#8217;s (GCP) Storage and Vision APIs, using Python <code>3.x</code> and other relevant tools on your local machine. Python developers can use the tutorial as a guide for the following purposes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exploring and testing GCP&#8217;s features and capabilities</p>
+</li>
+<li>
+<p>Integrating GCP products with their applications</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>In this tutorial, you will learn how to:</p>
+<p>The tutorial involves <strong>automated detection of landmarks</strong> in images of various locations, using the Google Cloud Storage and Vision APIs. You will learn how to:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -567,18 +574,8 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li>
 <p>Extend the project using various GCP offerings.</p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Python developers can use the tutorial as a guide for the following purposes:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p>A starting point for exploring GCP&#8217;s features and capabilities</p>
-</li>
-<li>
-<p>Integrating GCP products and services with their applications</p>
+<p>Discontinuing the project</p>
 </li>
 </ul>
 </div>
@@ -589,8 +586,15 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>All user replaceable values in the tutorial are in <code>UPPERCASE_CODE_FONT</code>. While executing, replace them with actual values.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The commands and sample code is <em>unsuitable for production use</em>.</p>
+</li>
+<li>
+<p>All user-replaceable values are in <code>UPPERCASE_CODE_FONT</code>.</p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -703,7 +707,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When enabling the Vision API using the Google Cloud Console, <em>do not</em> generate any authorization credentials. In the next section, we generate the authentication credentials using the <code>gcloud</code> command-line utility.</p>
+<p>Do not generate authorization credentials when enabling the Vision API using the Google Cloud Console. In the next section, we create the authentication credentials using the <code>gcloud</code> utility.</p>
 </div>
 </td>
 </tr>
@@ -715,56 +719,48 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setting_up_the_project">Setting Up the Project</h2>
+<h2 id="_setting_up_the_project">Setting up the project</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_prerequisites_2">Prerequisites</h3>
 <div class="paragraph">
-<p>Ensure Python 3.x and <code>pip</code> are installed on your system. Upgrade <code>pip</code> if necessary:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code><span></span>$ python --version
-$ pip --version
-$ pip install --upgrade pip</code></pre>
-</div>
-</div>
+<p>Create a development environment on your local machine with all necessary packages, Cloud SDK, and client libraries.</p>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_development_environment">Creating a Development Environment</h3>
+<h3 id="_creating_a_development_environment">Creating a development environment</h3>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Ensure Python 3.x and <code>pip3</code> are installed on your system, and upgrade <code>pip</code> if necessary:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>--version
+$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>--version
+$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>pip</code></pre>
+</div>
+</div>
+</li>
 <li>
 <p>Create a project directory and navigate to it:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ mkdir PROJECT_DIRECTORY
-$ cd PROJECT_DIRECTORY</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>mkdir<span class="tok-w"> </span>PROJECT_DIRECTORY
+$<span class="tok-w"> </span><span class="tok-nb">cd</span><span class="tok-w"> </span>PROJECT_DIRECTORY</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Set up a virtual environment:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ pip install --upgrade virtualenv
-$ virtualenv VIRTUALENV_NAME
-$ source VIRTUALENV_NAME/bin/activate</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>virtualenv
+$<span class="tok-w"> </span>virtualenv<span class="tok-w"> </span>VIRTUALENV_NAME
+$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
 <div class="paragraph">
-<p>Your terminal prompt will change to indicate you&#8217;re within the virtual environment.</p>
+<p>Your terminal prompt will change to indicate you are within the virtual environment.</p>
 </div>
-</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -772,119 +768,105 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the Cloud SDK for your operating system. Accept default options during installation.</p>
+<p>Install the <a href="https://cloud.google.com/sdk/docs/install">Cloud SDK</a> for your operating system. Accept default options during installation.</p>
 </li>
 <li>
 <p>Initialize the project:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ gcloud init</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>init</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>When the program prompts, provide inputs that are relevant to the project.</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_installing_client_libraries">Installing Client Libraries</h3>
-<div class="paragraph">
-<p>Install the Storage and Vision client libraries:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code><span></span>$ pip install --upgrade google-cloud-storage google-cloud-vision</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configuring_authentication">Configuring Authentication</h2>
-<div class="sectionbody">
+<h3 id="_installing_and_configuring_client_libraries">Installing and configuring client libraries</h3>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Install the Storage and Vision client libraries for Python:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>google-cloud-storage<span class="tok-w"> </span>google-cloud-vision</code></pre>
+</div>
+</div>
+</li>
 <li>
 <p>Create a service account:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>create<span class="tok-w"> </span>SERVICE_ACCOUNT_NAME</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Grant permissions to the service account:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ gcloud projects add-iam-policy-binding PROJECT_ID \\
-  --member=&quot;serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com&quot; \\
-  --role=&quot;roles/owner&quot;</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>add-iam-policy-binding<span class="tok-w"> </span>PROJECT_ID<span class="tok-w"> </span><span class="tok-se">\</span>
+<span class="tok-w">  </span>--member<span class="tok-o">=</span><span class="tok-s2">&quot;serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com&quot;</span><span class="tok-w"> </span><span class="tok-se">\</span>
+<span class="tok-w">  </span>--role<span class="tok-o">=</span><span class="tok-s2">&quot;roles/owner&quot;</span></code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Generate a key file:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ gcloud iam service-accounts keys create KEY_FILE.json \\
-  --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>keys<span class="tok-w"> </span>create<span class="tok-w"> </span>KEY_FILE.json<span class="tok-w"> </span><span class="tok-se">\</span>
+<span class="tok-w">  </span>--iam-account<span class="tok-o">=</span>SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set the authentication credentials:</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code><span></span>$ export GOOGLE_APPLICATION_CREDENTIALS=&quot;KEY_FILE.json&quot;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<div class="title">Warning</div>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The environment variable is valid only for the current shell session. Reset it after restarting the shell.</p>
+<p>Ensure that the private key in the <code>KEY_FILE.json</code> file is unavailable to the public. If you use GitHub or similar services to host the code for this project, add the name of the key file to <code>.gitignore</code>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_example_project_structure">Example Project Structure</h3>
+</li>
+<li>
+<p>Configure the authentication credentials by setting the <code>GOOGLE_APPLICATION_CREDENTIALS</code> environment variable to the name of the key file.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Append the following line to <code>~/.bashrc</code> (or your shell&#8217;s equivalent):</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>PROJECT_DIRECTORY
-├── VIRTUALENV_NAME/
-├── IMAGE_DIRECTORY/
-│   ├── image1.png
-│   ├── image2.jpg
-│   ├── image3.jpeg
-├── KEY_FILE.json
-├── main.py</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span><span class="tok-nb">export</span><span class="tok-w"> </span><span class="tok-nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="tok-o">=</span><span class="tok-s2">&quot;PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json&quot;</span></code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>Source the file to make the changes effective:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>~/.bashrc</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_creating_a_python_script">Creating a Python Script</h2>
+<h2 id="_creating_a_python_script">Creating a Python script</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Develop a script that:</p>
@@ -892,103 +874,233 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Accepts a directory containing images.</p>
+<p>Accepts a directory containing images of famous landmarks.</p>
 </li>
 <li>
 <p>Uploads images to the Cloud Storage bucket.</p>
 </li>
 <li>
-<p>Uses the Vision API to extract landmark information from each image.</p>
+<p>For each uploaded image</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Uses the Vision API to extract information about the landmarks present in the image.</p>
+</li>
+<li>
+<p>Prints some information of common interest (for example, description and location of the landmark).</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_sample_code">Sample Code</h3>
+<h3 id="_project_structure">Project structure</h3>
+<div class="paragraph">
+<p>To complete the project structure, create the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A directory containing images of landmarks.</p>
+</li>
+<li>
+<p>A <code>main.py</code> file.</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">from</span> <span class="tok-nn">google.cloud</span> <span class="tok-kn">import</span> <span class="tok-n">storage</span><span class="tok-p">,</span> <span class="tok-n">vision</span>
-<span class="tok-kn">import</span> <span class="tok-nn">os</span>
+<pre class="pygments highlight"><code><span></span>. PROJECT_DIRECTORY
+|
+|--- VIRTUALENV_NAME
+|        |
+|        |--- bin
+|        |--- include
+|        |--- lib
+|        |--- lib64
+|        |--- pyenv.cfg
+|
+|--- IMAGE_DIRECTORY
+|        |
+|        |--- image1.png
+|        |--- image2.jpg
+|        |--- image3.jpeg
+|
+|--- KEY_FILE.json
+|
+|--- main.py</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sample_code_in_main_py">Sample code in <code>main.py</code></h3>
+<div class="paragraph">
+<p>In the <code>main.py</code> file, write code which is similar to the following sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-c1"># Import dependencies</span>
+<span class="tok-kn">from</span> <span class="tok-nn">__future__</span> <span class="tok-kn">import</span> <span class="tok-n">print_function</span>
+<span class="tok-kn">from</span> <span class="tok-nn">google.cloud</span> <span class="tok-kn">import</span> <span class="tok-n">storage</span><span class="tok-p">,</span> <span class="tok-n">vision</span>
+<span class="tok-kn">import</span> <span class="tok-nn">io</span><span class="tok-o">,</span> <span class="tok-nn">os</span>
 
+<span class="tok-c1"># Define functions</span>
 <span class="tok-k">def</span> <span class="tok-nf">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">):</span>
-    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Returns a list of absolute paths of images.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
-    <span class="tok-k">return</span> <span class="tok-p">[</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">abspath</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">join</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">))</span> <span class="tok-k">for</span> <span class="tok-n">file</span> <span class="tok-ow">in</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">listdir</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)]</span>
+<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns a list containing absolute paths of images.&quot;&quot;&quot;</span>
+    <span class="tok-n">image_abspath_list</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
+    <span class="tok-k">for</span> <span class="tok-n">file</span> <span class="tok-ow">in</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">listdir</span><span class="tok-p">(</span><span class="tok-s1">&#39;./&#39;</span> <span class="tok-o">+</span> <span class="tok-n">image_dir</span><span class="tok-p">):</span>
+        <span class="tok-n">image_abspath_list</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">abspath</span><span class="tok-p">(</span><span class="tok-n">image_dir</span> <span class="tok-o">+</span> <span class="tok-s1">&#39;/&#39;</span> <span class="tok-o">+</span> <span class="tok-n">file</span><span class="tok-p">))</span>
+    <span class="tok-k">return</span> <span class="tok-n">image_abspath_list</span>
 
-<span class="tok-k">def</span> <span class="tok-nf">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_paths</span><span class="tok-p">):</span>
-    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Uploads images and returns their Cloud Storage URIs.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
-    <span class="tok-n">client</span> <span class="tok-o">=</span> <span class="tok-n">storage</span><span class="tok-o">.</span><span class="tok-n">Client</span><span class="tok-p">()</span>
-    <span class="tok-n">bucket</span> <span class="tok-o">=</span> <span class="tok-n">client</span><span class="tok-o">.</span><span class="tok-n">bucket</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">)</span>
-    <span class="tok-n">uris</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
-    <span class="tok-k">for</span> <span class="tok-n">path</span> <span class="tok-ow">in</span> <span class="tok-n">image_paths</span><span class="tok-p">:</span>
-        <span class="tok-n">blob</span> <span class="tok-o">=</span> <span class="tok-n">bucket</span><span class="tok-o">.</span><span class="tok-n">blob</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">basename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">))</span>
-        <span class="tok-n">blob</span><span class="tok-o">.</span><span class="tok-n">upload_from_filename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">)</span>
-        <span class="tok-n">uris</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;gs://</span><span class="tok-si">{</span><span class="tok-n">bucket_name</span><span class="tok-si">}</span><span class="tok-s2">/</span><span class="tok-si">{</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">basename</span><span class="tok-p">(</span><span class="tok-n">path</span><span class="tok-p">)</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
-    <span class="tok-k">return</span> <span class="tok-n">uris</span>
+<span class="tok-k">def</span> <span class="tok-nf">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">):</span>
+<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns a list containing relative URIs of uploaded images.&quot;&quot;&quot;</span>
+    <span class="tok-n">relative_storage_uris</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
+    <span class="tok-n">storage_client</span> <span class="tok-o">=</span> <span class="tok-n">storage</span><span class="tok-o">.</span><span class="tok-n">Client</span><span class="tok-p">()</span>
+    <span class="tok-n">bucket</span> <span class="tok-o">=</span> <span class="tok-n">storage_client</span><span class="tok-o">.</span><span class="tok-n">bucket</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">)</span>
+    <span class="tok-k">for</span> <span class="tok-n">image_abspath</span> <span class="tok-ow">in</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">:</span>
+        <span class="tok-n">image_name</span> <span class="tok-o">=</span> <span class="tok-n">image_abspath</span><span class="tok-o">.</span><span class="tok-n">split</span><span class="tok-p">(</span><span class="tok-s1">&#39;/&#39;</span><span class="tok-p">)[</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span>
+        <span class="tok-n">blob</span> <span class="tok-o">=</span> <span class="tok-n">bucket</span><span class="tok-o">.</span><span class="tok-n">blob</span><span class="tok-p">(</span><span class="tok-n">image_name</span><span class="tok-p">)</span>
+        <span class="tok-n">blob</span><span class="tok-o">.</span><span class="tok-n">upload_from_filename</span><span class="tok-p">(</span><span class="tok-n">image_abspath</span><span class="tok-p">)</span>
+        <span class="tok-n">relative_storage_uris</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-s1">&#39;gs://&#39;</span> <span class="tok-o">+</span> <span class="tok-n">bucket_name</span> <span class="tok-o">+</span> <span class="tok-s1">&#39;/&#39;</span> <span class="tok-o">+</span> <span class="tok-n">image_name</span><span class="tok-p">)</span>
+    <span class="tok-k">return</span> <span class="tok-n">relative_storage_uris</span>
 
-<span class="tok-k">def</span> <span class="tok-nf">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">image_uris</span><span class="tok-p">):</span>
-    \<span class="tok-s2">&quot;</span><span class="tok-se">\&quot;\&quot;</span><span class="tok-s2">Extracts and prints landmark information.</span><span class="tok-se">\&quot;\&quot;\&quot;</span>
-    <span class="tok-n">client</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">ImageAnnotatorClient</span><span class="tok-p">()</span>
-    <span class="tok-k">for</span> <span class="tok-n">uri</span> <span class="tok-ow">in</span> <span class="tok-n">image_uris</span><span class="tok-p">:</span>
-        <span class="tok-n">image</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">Image</span><span class="tok-p">(</span><span class="tok-n">source</span><span class="tok-o">=</span><span class="tok-p">{</span><span class="tok-s2">&quot;image_uri&quot;</span><span class="tok-p">:</span> <span class="tok-n">uri</span><span class="tok-p">})</span>
-        <span class="tok-n">response</span> <span class="tok-o">=</span> <span class="tok-n">client</span><span class="tok-o">.</span><span class="tok-n">landmark_detection</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-o">=</span><span class="tok-n">image</span><span class="tok-p">)</span>
-        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;</span><span class="tok-se">\\</span><span class="tok-s2">nIMAGE: </span><span class="tok-si">{</span><span class="tok-n">uri</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
-        <span class="tok-k">for</span> <span class="tok-n">landmark</span> <span class="tok-ow">in</span> <span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-n">landmark_annotations</span><span class="tok-p">:</span>
-            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-sa">f</span><span class="tok-s2">&quot;Landmark: </span><span class="tok-si">{</span><span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">description</span><span class="tok-si">}</span><span class="tok-s2">, Confidence: </span><span class="tok-si">{</span><span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">score</span><span class="tok-si">}</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
+<span class="tok-k">def</span> <span class="tok-nf">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">relative_storage_uris</span><span class="tok-p">):</span>
+<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns information on uploaded images.&quot;&quot;&quot;</span>
+    <span class="tok-n">vision_client</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">ImageAnnotatorClient</span><span class="tok-p">()</span>
+    <span class="tok-n">image_object</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">Image</span><span class="tok-p">()</span>
+    <span class="tok-k">for</span> <span class="tok-n">image_uri</span> <span class="tok-ow">in</span> <span class="tok-n">relative_storage_uris</span><span class="tok-p">:</span>
+        <span class="tok-n">image_object</span><span class="tok-o">.</span><span class="tok-n">source</span><span class="tok-o">.</span><span class="tok-n">image_uri</span> <span class="tok-o">=</span> <span class="tok-n">image_uri</span>
+        <span class="tok-n">vision_response</span> <span class="tok-o">=</span> <span class="tok-n">vision_client</span><span class="tok-o">.</span><span class="tok-n">landmark_detection</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-o">=</span><span class="tok-n">image_object</span><span class="tok-p">)</span>
+        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;+&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;IMAGE:&#39;</span><span class="tok-p">,</span> <span class="tok-n">image_uri</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+        <span class="tok-k">for</span> <span class="tok-n">landmark</span> <span class="tok-ow">in</span> <span class="tok-n">vision_response</span><span class="tok-o">.</span><span class="tok-n">landmark_annotations</span><span class="tok-p">:</span>
+            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;=&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">50</span><span class="tok-p">)</span>
+            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Landmark name:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">description</span><span class="tok-p">)</span>
+            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Landmark location:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">locations</span><span class="tok-p">)</span>
+            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Detection confidence score:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">score</span><span class="tok-p">)</span>
 
-<span class="tok-c1"># Main script</span>
-<span class="tok-k">if</span> <span class="tok-vm">__name__</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;__main__&quot;</span><span class="tok-p">:</span>
-    <span class="tok-n">image_dir</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s2">&quot;Enter the image directory: &quot;</span><span class="tok-p">)</span>
-    <span class="tok-n">bucket_name</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s2">&quot;Enter the bucket name: &quot;</span><span class="tok-p">)</span>
-    <span class="tok-n">images</span> <span class="tok-o">=</span> <span class="tok-n">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)</span>
-    <span class="tok-n">uris</span> <span class="tok-o">=</span> <span class="tok-n">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">images</span><span class="tok-p">)</span>
-    <span class="tok-n">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">uris</span><span class="tok-p">)</span></code></pre>
+<span class="tok-c1"># Accept user inputs</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+<span class="tok-n">image_dir</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s1">&#39;Enter the image directory: &#39;</span><span class="tok-p">)</span>
+<span class="tok-n">bucket_name</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s1">&#39;Enter the bucket name: &#39;</span><span class="tok-p">)</span>
+
+<span class="tok-c1"># Call functions</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Getting image names...&#39;</span><span class="tok-p">)</span>
+<span class="tok-n">image_abspath_list</span> <span class="tok-o">=</span> <span class="tok-n">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Uploading images to cloud storage...&#39;</span><span class="tok-p">)</span>
+<span class="tok-n">relative_storage_uris</span> <span class="tok-o">=</span> <span class="tok-n">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">)</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Extracting landmark information...&#39;</span><span class="tok-p">)</span>
+<span class="tok-n">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">relative_storage_uris</span><span class="tok-p">)</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;+&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE... All information displayed!&#39;</span><span class="tok-p">)</span>
+<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_running_the_script">Running the script</h3>
+<div class="paragraph">
+<p>Run the <code>main.py</code> file. In the terminal, you will see an output similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>main.py
+
+Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>image<span class="tok-w"> </span>directory:<span class="tok-w"> </span>IMAGE_DIRECTORY
+Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>bucket<span class="tok-w"> </span>name:<span class="tok-w"> </span>BUCKET_NAME
+
+Getting<span class="tok-w"> </span>image<span class="tok-w"> </span>names...
+DONE
+
+Uploading<span class="tok-w"> </span>images<span class="tok-w"> </span>to<span class="tok-w"> </span>cloud<span class="tok-w"> </span>storage...
+DONE
+
+Extracting<span class="tok-w"> </span>landmark<span class="tok-w"> </span>information...
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+IMAGE:<span class="tok-w"> </span>gs://BUCKET_NAME/IMAGE_1.jpg
+<span class="tok-o">==================================================</span>
+Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal
+Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
+<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.174698469698683
+<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">78</span>.042073
+<span class="tok-o">}</span>
+<span class="tok-o">]</span>
+Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.8424403667449951
+<span class="tok-o">==================================================</span>
+Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal<span class="tok-w"> </span>Garden
+Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
+<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.1732425
+<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">78</span>.0421396
+<span class="tok-o">}</span>
+<span class="tok-o">]</span>
+Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.7699416875839233
+<span class="tok-o">==================================================</span>
+Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal
+Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
+<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.166695
+<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">77</span>.960958
+<span class="tok-o">}</span>
+<span class="tok-o">]</span>
+Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.4865312874317169
+<span class="tok-w"> </span>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<span class="tok-w"> </span>DONE...<span class="tok-w"> </span>All<span class="tok-w"> </span>information<span class="tok-w"> </span>displayed!</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extending_the_project">Extending the Project</h2>
+<h2 id="_extending_the_project">Extending the project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Consider adding these features:</p>
+<p>You can extend the project by using the following offerings from GCP:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Use the Google Maps API to get landmark names.</p>
+<p>Use the <a href="https://developers.google.com/maps/documentation/geocoding/start#reverse">Google Maps API</a> to get the names of the landmark locations.</p>
 </li>
 <li>
-<p>Store URLs in Cloud SQL.</p>
+<p>Use <a href="https://cloud.google.com/sql/docs">Cloud SQL</a> to store and retrieve image URLs.</p>
 </li>
 <li>
-<p>Build a REST API using Flask.</p>
-</li>
-<li>
-<p>Deploy to Google App Engine.</p>
-</li>
-<li>
-<p>Implement user authentication with OAuth2.</p>
+<p>Use <a href="https://cloud.google.com/appengine/docs/standard/python3/building-app/deploying-web-service">Google App Engine</a> to deploy the application.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you&#8217;re no longer developing, delete the project to avoid incurring charges:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_discontinuing_the_project">Discontinuing the project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you discontinue development of the project:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the project to avoid incurring charges:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>$ gcloud projects delete PROJECT_ID</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>delete<span class="tok-w"> </span>PROJECT_ID</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
+</li>
+<li>
+<p>Deactivate the virtual environment to return to the default terminal prompt::</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$<span class="tok-w"> </span>deactivate</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
