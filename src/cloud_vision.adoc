@@ -23,16 +23,16 @@ This tutorial illustrates how to programmatically interact with Google Cloud Pla
 
 The tutorial involves *automated detection of landmarks* in images of various locations, using the Google Cloud Storage and Vision APIs. You will learn how to:
 
-* Configure various products and services of GCP
-* Set up the project with appropriate structure
-* Create a Python script for interacting with the APIs
+* Configure various GCP products and services for your project.
+* Set up the project with appropriate structure.
+* Create a Python script for interacting with the APIs.
 * Extend the project using various GCP offerings.
-* Discontinuing the project
+* Delete the project from GCP.
 
 [NOTE]
 ====
-* The commands and sample code is _unsuitable for production use_.
-* All user-replaceable values are in `UPPERCASE_CODE_FONT`.
+* The commands and sample code are _unsuitable for production use_.
+* All user-replaceable values are written in `UPPERCASE_CODE_FONT`.
 ====
 
 == Prerequisites
@@ -351,7 +351,7 @@ You can extend the project by using the following offerings from GCP:
 * Use link:https://cloud.google.com/sql/docs[Cloud SQL] to store and retrieve image URLs.
 * Use link:https://cloud.google.com/appengine/docs/standard/python3/building-app/deploying-web-service[Google App Engine] to deploy the application.
 
-== Discontinuing the project
+== Deleting the project
 
 If you discontinue development of the project:
 
