@@ -17,6 +17,8 @@ toc::[]
 == Overview
 Pods are the smallest deployable units in Kubernetes and critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.
 
+image::cluster_architecture.svg[title="Kubernetes cluster architecture"]
+
 This article helps Kubernetes cluster administrators and developers diagnose and troubleshoot pod issues. After reading, you will be able to:
 
 * Inspect pod status in a cluster.
@@ -81,7 +83,7 @@ For a graphical interface, use the Kubernetes dashboard:
 2. Navigate to the *Pods* section.
 3. Select a pod to view its details.
 
-image::pods.png[title="Pod details in the Kubernetes dashboard"]
+image::pods.png[title="Pods in a Kubernetes dashboard"]
 
 === Step 2: Review pod logs
 Logs help identify what a container is doing or why it failed.
