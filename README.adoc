@@ -30,9 +30,11 @@ This section contains links to *merged pull requests* for the projects on which 
 
 == Interview samples
 
-I wrote a few articles as interview samples for a prospective employers, who neither paid me for my effort nor made me sign an NDA. This section contains those articles. 
+I wrote some articles as interview samples for a prospective employers, who _neither paid me for my effort nor made me sign an NDA_. This section contains a few of those articles. 
 
-* link:build/html/browserstack_selenium.html[Test automation using Selenium, BrowserStack, and GitHub Actions]
+* link:https://sounix000.github.io/browserstack-assignment/[Test automation using Selenium, BrowserStack, and GitHub Actions]
+
+* link:https://sounix000.github.io/browserstack-assignment/docs/doc-analysis[Analysis of BrowserStack documentation]
 
 * link:build/html/cloud_vision.html[Interacting with Google Cloud Storage and Vision API using Python]
 
