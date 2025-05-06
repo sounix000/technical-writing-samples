@@ -1,3 +1,5 @@
+# Ugly hack for the images in the generated HTML
+cp -r ./src/images ./build/html/images
 
 # Build HTML files using asciidoctor
 asciidoctor -o index.html README.adoc
