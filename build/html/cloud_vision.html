@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.17">
 <title>Interacting with Google Cloud Storage and Vision API using Python</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.square{list-style-type:square}
-ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,7 +162,6 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -209,10 +208,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -328,7 +330,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -391,7 +393,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -432,78 +434,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer{background:none}
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
-</style>
-<style>
-pre.pygments .hll { background-color: #ffffcc }
-pre.pygments { background: #f8f8f8; }
-pre.pygments .tok-c { color: #3D7B7B; font-style: italic } /* Comment */
-pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
-pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
-pre.pygments .tok-o { color: #666666 } /* Operator */
-pre.pygments .tok-ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
-pre.pygments .tok-cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
-pre.pygments .tok-cp { color: #9C6500 } /* Comment.Preproc */
-pre.pygments .tok-cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
-pre.pygments .tok-c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
-pre.pygments .tok-cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
-pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
-pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
-pre.pygments .tok-ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
-pre.pygments .tok-gr { color: #E40000 } /* Generic.Error */
-pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
-pre.pygments .tok-gi { color: #008400 } /* Generic.Inserted */
-pre.pygments .tok-go { color: #717171 } /* Generic.Output */
-pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
-pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
-pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
-pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
-pre.pygments .tok-m { color: #666666 } /* Literal.Number */
-pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
-pre.pygments .tok-na { color: #687822 } /* Name.Attribute */
-pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
-pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
-pre.pygments .tok-no { color: #880000 } /* Name.Constant */
-pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
-pre.pygments .tok-ni { color: #717171; font-weight: bold } /* Name.Entity */
-pre.pygments .tok-ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
-pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
-pre.pygments .tok-nl { color: #767600 } /* Name.Label */
-pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
-pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
-pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
-pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
-pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
-pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
-pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
-pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
-pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
-pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
-pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
-pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
-pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
-pre.pygments .tok-se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
-pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
-pre.pygments .tok-si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
-pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
-pre.pygments .tok-sr { color: #A45A77 } /* Literal.String.Regex */
-pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
-pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
-pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
-pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
-pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
-pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
-pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
-pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
-pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </style>
 </head>
 <body class="article">
@@ -732,9 +662,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>Ensure Python 3.x and <code>pip3</code> are installed on your system, and upgrade <code>pip</code> if necessary:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>--version
-$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>--version
-$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>pip</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ python3 --version
+$ pip3 --version
+$ pip3 install --upgrade pip</code></pre>
 </div>
 </div>
 </li>
@@ -742,8 +672,8 @@ $<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class=
 <p>Create a project directory and navigate to it:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>mkdir<span class="tok-w"> </span>PROJECT_DIRECTORY
-$<span class="tok-w"> </span><span class="tok-nb">cd</span><span class="tok-w"> </span>PROJECT_DIRECTORY</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ mkdir PROJECT_DIRECTORY
+$ cd PROJECT_DIRECTORY</code></pre>
 </div>
 </div>
 </li>
@@ -751,9 +681,9 @@ $<span class="tok-w"> </span><span class="tok-nb">cd</span><span class="tok-w"> 
 <p>Set up a virtual environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>virtualenv
-$<span class="tok-w"> </span>virtualenv<span class="tok-w"> </span>VIRTUALENV_NAME
-$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>VIRTUALENV_NAME/bin/activate</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ pip3 install --upgrade virtualenv
+$ virtualenv VIRTUALENV_NAME
+$ source VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -774,7 +704,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Initialize the project:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>init</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ gcloud init</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -792,7 +722,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Install the Storage and Vision client libraries for Python:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>pip3<span class="tok-w"> </span>install<span class="tok-w"> </span>--upgrade<span class="tok-w"> </span>google-cloud-storage<span class="tok-w"> </span>google-cloud-vision</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ pip3 install --upgrade google-cloud-storage google-cloud-vision</code></pre>
 </div>
 </div>
 </li>
@@ -800,7 +730,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Create a service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>create<span class="tok-w"> </span>SERVICE_ACCOUNT_NAME</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME</code></pre>
 </div>
 </div>
 </li>
@@ -808,9 +738,9 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Grant permissions to the service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>add-iam-policy-binding<span class="tok-w"> </span>PROJECT_ID<span class="tok-w"> </span><span class="tok-se">\</span>
-<span class="tok-w">  </span>--member<span class="tok-o">=</span><span class="tok-s2">&quot;serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com&quot;</span><span class="tok-w"> </span><span class="tok-se">\</span>
-<span class="tok-w">  </span>--role<span class="tok-o">=</span><span class="tok-s2">&quot;roles/owner&quot;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/owner"</code></pre>
 </div>
 </div>
 </li>
@@ -818,8 +748,8 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Generate a key file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>iam<span class="tok-w"> </span>service-accounts<span class="tok-w"> </span>keys<span class="tok-w"> </span>create<span class="tok-w"> </span>KEY_FILE.json<span class="tok-w"> </span><span class="tok-se">\</span>
-<span class="tok-w">  </span>--iam-account<span class="tok-o">=</span>SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ gcloud iam service-accounts keys create KEY_FILE.json \
+  --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
 </div>
 </div>
 <div class="admonitionblock warning">
@@ -845,7 +775,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Append the following line to <code>~/.bashrc</code> (or your shell&#8217;s equivalent):</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span><span class="tok-nb">export</span><span class="tok-w"> </span><span class="tok-nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="tok-o">=</span><span class="tok-s2">&quot;PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json&quot;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ export GOOGLE_APPLICATION_CREDENTIALS="PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json"</code></pre>
 </div>
 </div>
 </li>
@@ -853,7 +783,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 <p>Source the file to make the changes effective:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-w"> </span>~/.bashrc</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ source ~/.bashrc</code></pre>
 </div>
 </div>
 </li>
@@ -911,7 +841,7 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code><span></span>. PROJECT_DIRECTORY
+<pre class="pygments highlight"><code>. PROJECT_DIRECTORY
 |
 |--- VIRTUALENV_NAME
 |        |
@@ -940,65 +870,65 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-c1"># Import dependencies</span>
-<span class="tok-kn">from</span> <span class="tok-nn">__future__</span> <span class="tok-kn">import</span> <span class="tok-n">print_function</span>
-<span class="tok-kn">from</span> <span class="tok-nn">google.cloud</span> <span class="tok-kn">import</span> <span class="tok-n">storage</span><span class="tok-p">,</span> <span class="tok-n">vision</span>
-<span class="tok-kn">import</span> <span class="tok-nn">io</span><span class="tok-o">,</span> <span class="tok-nn">os</span>
+<pre class="pygments highlight"><code data-lang="python"># Import dependencies
+from __future__ import print_function
+from google.cloud import storage, vision
+import io, os
 
-<span class="tok-c1"># Define functions</span>
-<span class="tok-k">def</span> <span class="tok-nf">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">):</span>
-<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns a list containing absolute paths of images.&quot;&quot;&quot;</span>
-    <span class="tok-n">image_abspath_list</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
-    <span class="tok-k">for</span> <span class="tok-n">file</span> <span class="tok-ow">in</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">listdir</span><span class="tok-p">(</span><span class="tok-s1">&#39;./&#39;</span> <span class="tok-o">+</span> <span class="tok-n">image_dir</span><span class="tok-p">):</span>
-        <span class="tok-n">image_abspath_list</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">abspath</span><span class="tok-p">(</span><span class="tok-n">image_dir</span> <span class="tok-o">+</span> <span class="tok-s1">&#39;/&#39;</span> <span class="tok-o">+</span> <span class="tok-n">file</span><span class="tok-p">))</span>
-    <span class="tok-k">return</span> <span class="tok-n">image_abspath_list</span>
+# Define functions
+def get_image_names(image_dir):
+    """Returns a list containing absolute paths of images."""
+    image_abspath_list = []
+    for file in os.listdir('./' + image_dir):
+        image_abspath_list.append(os.path.abspath(image_dir + '/' + file))
+    return image_abspath_list
 
-<span class="tok-k">def</span> <span class="tok-nf">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">):</span>
-<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns a list containing relative URIs of uploaded images.&quot;&quot;&quot;</span>
-    <span class="tok-n">relative_storage_uris</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
-    <span class="tok-n">storage_client</span> <span class="tok-o">=</span> <span class="tok-n">storage</span><span class="tok-o">.</span><span class="tok-n">Client</span><span class="tok-p">()</span>
-    <span class="tok-n">bucket</span> <span class="tok-o">=</span> <span class="tok-n">storage_client</span><span class="tok-o">.</span><span class="tok-n">bucket</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">)</span>
-    <span class="tok-k">for</span> <span class="tok-n">image_abspath</span> <span class="tok-ow">in</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">:</span>
-        <span class="tok-n">image_name</span> <span class="tok-o">=</span> <span class="tok-n">image_abspath</span><span class="tok-o">.</span><span class="tok-n">split</span><span class="tok-p">(</span><span class="tok-s1">&#39;/&#39;</span><span class="tok-p">)[</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span>
-        <span class="tok-n">blob</span> <span class="tok-o">=</span> <span class="tok-n">bucket</span><span class="tok-o">.</span><span class="tok-n">blob</span><span class="tok-p">(</span><span class="tok-n">image_name</span><span class="tok-p">)</span>
-        <span class="tok-n">blob</span><span class="tok-o">.</span><span class="tok-n">upload_from_filename</span><span class="tok-p">(</span><span class="tok-n">image_abspath</span><span class="tok-p">)</span>
-        <span class="tok-n">relative_storage_uris</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">(</span><span class="tok-s1">&#39;gs://&#39;</span> <span class="tok-o">+</span> <span class="tok-n">bucket_name</span> <span class="tok-o">+</span> <span class="tok-s1">&#39;/&#39;</span> <span class="tok-o">+</span> <span class="tok-n">image_name</span><span class="tok-p">)</span>
-    <span class="tok-k">return</span> <span class="tok-n">relative_storage_uris</span>
+def upload_landmark_images(bucket_name, image_abspath_list):
+    """Returns a list containing relative URIs of uploaded images."""
+    relative_storage_uris = []
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    for image_abspath in image_abspath_list:
+        image_name = image_abspath.split('/')[-1]
+        blob = bucket.blob(image_name)
+        blob.upload_from_filename(image_abspath)
+        relative_storage_uris.append('gs://' + bucket_name + '/' + image_name)
+    return relative_storage_uris
 
-<span class="tok-k">def</span> <span class="tok-nf">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">relative_storage_uris</span><span class="tok-p">):</span>
-<span class="tok-w">    </span><span class="tok-sd">&quot;&quot;&quot;Returns information on uploaded images.&quot;&quot;&quot;</span>
-    <span class="tok-n">vision_client</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">ImageAnnotatorClient</span><span class="tok-p">()</span>
-    <span class="tok-n">image_object</span> <span class="tok-o">=</span> <span class="tok-n">vision</span><span class="tok-o">.</span><span class="tok-n">Image</span><span class="tok-p">()</span>
-    <span class="tok-k">for</span> <span class="tok-n">image_uri</span> <span class="tok-ow">in</span> <span class="tok-n">relative_storage_uris</span><span class="tok-p">:</span>
-        <span class="tok-n">image_object</span><span class="tok-o">.</span><span class="tok-n">source</span><span class="tok-o">.</span><span class="tok-n">image_uri</span> <span class="tok-o">=</span> <span class="tok-n">image_uri</span>
-        <span class="tok-n">vision_response</span> <span class="tok-o">=</span> <span class="tok-n">vision_client</span><span class="tok-o">.</span><span class="tok-n">landmark_detection</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-o">=</span><span class="tok-n">image_object</span><span class="tok-p">)</span>
-        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;+&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
-        <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;IMAGE:&#39;</span><span class="tok-p">,</span> <span class="tok-n">image_uri</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
-        <span class="tok-k">for</span> <span class="tok-n">landmark</span> <span class="tok-ow">in</span> <span class="tok-n">vision_response</span><span class="tok-o">.</span><span class="tok-n">landmark_annotations</span><span class="tok-p">:</span>
-            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;=&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">50</span><span class="tok-p">)</span>
-            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Landmark name:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">description</span><span class="tok-p">)</span>
-            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Landmark location:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">locations</span><span class="tok-p">)</span>
-            <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;Detection confidence score:&#39;</span><span class="tok-p">,</span> <span class="tok-n">landmark</span><span class="tok-o">.</span><span class="tok-n">score</span><span class="tok-p">)</span>
+def get_landmark_information(relative_storage_uris):
+    """Returns information on uploaded images."""
+    vision_client = vision.ImageAnnotatorClient()
+    image_object = vision.Image()
+    for image_uri in relative_storage_uris:
+        image_object.source.image_uri = image_uri
+        vision_response = vision_client.landmark_detection(image=image_object)
+        print('\n', '+' * 100, '\n')
+        print('IMAGE:', image_uri, '\n')
+        for landmark in vision_response.landmark_annotations:
+            print('=' * 50)
+            print('Landmark name:', landmark.description)
+            print('Landmark location:', landmark.locations)
+            print('Detection confidence score:', landmark.score)
 
-<span class="tok-c1"># Accept user inputs</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
-<span class="tok-n">image_dir</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s1">&#39;Enter the image directory: &#39;</span><span class="tok-p">)</span>
-<span class="tok-n">bucket_name</span> <span class="tok-o">=</span> <span class="tok-nb">input</span><span class="tok-p">(</span><span class="tok-s1">&#39;Enter the bucket name: &#39;</span><span class="tok-p">)</span>
+# Accept user inputs
+print('\n')
+image_dir = input('Enter the image directory: ')
+bucket_name = input('Enter the bucket name: ')
 
-<span class="tok-c1"># Call functions</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Getting image names...&#39;</span><span class="tok-p">)</span>
-<span class="tok-n">image_abspath_list</span> <span class="tok-o">=</span> <span class="tok-n">get_image_names</span><span class="tok-p">(</span><span class="tok-n">image_dir</span><span class="tok-p">)</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+# Call functions
+print('\n', 'Getting image names...')
+image_abspath_list = get_image_names(image_dir)
+print(' DONE', '\n')
 
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Uploading images to cloud storage...&#39;</span><span class="tok-p">)</span>
-<span class="tok-n">relative_storage_uris</span> <span class="tok-o">=</span> <span class="tok-n">upload_landmark_images</span><span class="tok-p">(</span><span class="tok-n">bucket_name</span><span class="tok-p">,</span> <span class="tok-n">image_abspath_list</span><span class="tok-p">)</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
+print('\n', 'Uploading images to cloud storage...')
+relative_storage_uris = upload_landmark_images(bucket_name, image_abspath_list)
+print(' DONE', '\n')
 
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;Extracting landmark information...&#39;</span><span class="tok-p">)</span>
-<span class="tok-n">get_landmark_information</span><span class="tok-p">(</span><span class="tok-n">relative_storage_uris</span><span class="tok-p">)</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;+&#39;</span> <span class="tok-o">*</span> <span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-s1">&#39;</span><span class="tok-se">\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39; DONE... All information displayed!&#39;</span><span class="tok-p">)</span>
-<span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s1">&#39;</span><span class="tok-se">\n\n</span><span class="tok-s1">&#39;</span><span class="tok-p">)</span></code></pre>
+print('\n', 'Extracting landmark information...')
+get_landmark_information(relative_storage_uris)
+print('\n', '+' * 100, '\n')
+print(' DONE... All information displayed!')
+print('\n\n')</code></pre>
 </div>
 </div>
 </div>
@@ -1009,47 +939,47 @@ $<span class="tok-w"> </span><span class="tok-nb">source</span><span class="tok-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>python3<span class="tok-w"> </span>main.py
+<pre class="pygments highlight"><code data-lang="shell">$ python3 main.py
 
-Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>image<span class="tok-w"> </span>directory:<span class="tok-w"> </span>IMAGE_DIRECTORY
-Enter<span class="tok-w"> </span>the<span class="tok-w"> </span>bucket<span class="tok-w"> </span>name:<span class="tok-w"> </span>BUCKET_NAME
+Enter the image directory: IMAGE_DIRECTORY
+Enter the bucket name: BUCKET_NAME
 
-Getting<span class="tok-w"> </span>image<span class="tok-w"> </span>names...
+Getting image names...
 DONE
 
-Uploading<span class="tok-w"> </span>images<span class="tok-w"> </span>to<span class="tok-w"> </span>cloud<span class="tok-w"> </span>storage...
+Uploading images to cloud storage...
 DONE
 
-Extracting<span class="tok-w"> </span>landmark<span class="tok-w"> </span>information...
+Extracting landmark information...
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-IMAGE:<span class="tok-w"> </span>gs://BUCKET_NAME/IMAGE_1.jpg
-<span class="tok-o">==================================================</span>
-Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal
-Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
-<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.174698469698683
-<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">78</span>.042073
-<span class="tok-o">}</span>
-<span class="tok-o">]</span>
-Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.8424403667449951
-<span class="tok-o">==================================================</span>
-Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal<span class="tok-w"> </span>Garden
-Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
-<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.1732425
-<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">78</span>.0421396
-<span class="tok-o">}</span>
-<span class="tok-o">]</span>
-Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.7699416875839233
-<span class="tok-o">==================================================</span>
-Landmark<span class="tok-w"> </span>name:<span class="tok-w"> </span>Taj<span class="tok-w"> </span>Mahal
-Landmark<span class="tok-w"> </span>location:<span class="tok-w"> </span><span class="tok-o">[</span>lat_lng<span class="tok-w"> </span><span class="tok-o">{</span>
-<span class="tok-w">  </span>latitude:<span class="tok-w"> </span><span class="tok-m">27</span>.166695
-<span class="tok-w">  </span>longitude:<span class="tok-w"> </span><span class="tok-m">77</span>.960958
-<span class="tok-o">}</span>
-<span class="tok-o">]</span>
-Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score:<span class="tok-w"> </span><span class="tok-m">0</span>.4865312874317169
-<span class="tok-w"> </span>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-<span class="tok-w"> </span>DONE...<span class="tok-w"> </span>All<span class="tok-w"> </span>information<span class="tok-w"> </span>displayed!</code></pre>
+IMAGE: gs://BUCKET_NAME/IMAGE_1.jpg
+==================================================
+Landmark name: Taj Mahal
+Landmark location: [lat_lng {
+  latitude: 27.174698469698683
+  longitude: 78.042073
+}
+]
+Detection confidence score: 0.8424403667449951
+==================================================
+Landmark name: Taj Mahal Garden
+Landmark location: [lat_lng {
+  latitude: 27.1732425
+  longitude: 78.0421396
+}
+]
+Detection confidence score: 0.7699416875839233
+==================================================
+Landmark name: Taj Mahal
+Landmark location: [lat_lng {
+  latitude: 27.166695
+  longitude: 77.960958
+}
+]
+Detection confidence score: 0.4865312874317169
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ DONE... All information displayed!</code></pre>
 </div>
 </div>
 </div>
@@ -1084,7 +1014,7 @@ Detection<span class="tok-w"> </span>confidence<span class="tok-w"> </span>score
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span>$<span class="tok-w"> </span>gcloud<span class="tok-w"> </span>projects<span class="tok-w"> </span>delete<span class="tok-w"> </span>PROJECT_ID</code></pre>
+<pre class="pygments highlight"><code data-lang="shell">$ gcloud projects delete PROJECT_ID</code></pre>
 </div>
 </div>
 </div>

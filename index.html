@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>Debugging pods in Kubernetes</title>
+<meta name="author" content="of Souvik Sarkar">
+<title>Technical Writing Samples</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,419 +439,114 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Debugging pods in Kubernetes</h1>
+<h1>Technical Writing Samples</h1>
+<div class="details">
+<span id="author" class="author">of Souvik Sarkar</span><br>
+</div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div id="toc" class="toc">
-<div id="toctitle" class="title">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_overview">Overview</a></li>
-<li><a href="#_prerequisites">Prerequisites</a></li>
-<li><a href="#_debug_pods_in_a_kubernetes_cluster">Debug pods in a Kubernetes cluster</a>
-<ul class="sectlevel2">
-<li><a href="#_step_1_check_pod_status">Step 1: Check pod status</a></li>
-<li><a href="#_step_2_review_pod_logs">Step 2: Review pod logs</a></li>
-<li><a href="#_step_3_execute_container_commands">Step 3: Execute container commands</a></li>
-<li><a href="#_step_4_use_ephemeral_debug_containers">Step 4: Use ephemeral debug containers</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<hr>
-</div>
-</div>
 <div class="sect1">
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pods are the smallest deployable units in Kubernetes and critical to application functionality. Debugging pods helps ensure applications run smoothly, scale seamlessly, and use cluster resources effectively.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/home/ssarkar/Projects/PERSONAL/technical-writing-samples/src/images/cluster_architecture.svg" alt="cluster architecture">
-</div>
-<div class="title">Figure 1. Kubernetes cluster architecture</div>
+<p>Hi, I am Souvik Sarkar — a hobbyist <strong>programmer</strong> and a professional <strong>technical writer</strong>. My areas of interest are <em>systems</em>, <em>security</em>, and <em>deployment</em>.</p>
 </div>
 <div class="paragraph">
-<p>This article helps Kubernetes cluster administrators and developers diagnose and troubleshoot pod issues. After reading, you will be able to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Inspect pod status in a cluster.</p>
-</li>
-<li>
-<p>Analyze logs for debugging.</p>
-</li>
-<li>
-<p>Execute shell commands within containers.</p>
-</li>
-<li>
-<p>Use ephemeral containers for interactive debugging.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Estimated time: <strong>30 minutes</strong></p>
+<p>This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here will help them decide whether I am good enough for an interview.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites">Prerequisites</h2>
+<h2 id="_work_samples">Work samples</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before starting, verify that you have:</p>
+<p>Over the last several years, my day job involves writing <em>open source technical documentation</em> for my employer. I have learnt a lot about the docs-as-code paradigm, adherence to style guides, and collaborating in the world of open source software.</p>
 </div>
+<div class="paragraph">
+<p>This section contains links to <strong>merged pull requests</strong> for the projects on which I worked. If you want to know how I perform in a professional environment, closely observing the pull requests will reveal the details that matter.</p>
+</div>
+<div class="sect2">
+<h3 id="_pull_requests_at_suse">Pull requests at SUSE</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Access to a Kubernetes cluster with running pods.</p>
+<p><a href="https://github.com/SUSE/doc-sle/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000">Administration guides for SUSE Linux Enterprise</a></p>
 </li>
 <li>
-<p>Sufficient permissions to execute <code>kubectl</code> commands.</p>
+<p><a href="https://github.com/SUSE/doc-modular/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000">Modular documentation for SUSE Linux Enterprise</a></p>
+</li>
+<li>
+<p><a href="https://github.com/SUSE/doc-unversioned/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000">Compliance and certification documentation for SUSE Linux Enterprise</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pull_requests_at_red_hat">Pull requests at Red Hat</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/openshift/openshift-docs/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000">OpenShift Pipelines documentation</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_debug_pods_in_a_kubernetes_cluster">Debug pods in a Kubernetes cluster</h2>
+<h2 id="_interview_samples">Interview samples</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following sections describe common debugging techniques. Use these techniques sequentially or combine them based on your specific scenario.</p>
+<p>I wrote a few articles as interview samples for a prospective employers, who neither paid me for my effort nor made me sign an NDA. This section contains those articles.</p>
 </div>
-<div class="sect2">
-<h3 id="_step_1_check_pod_status">Step 1: Check pod status</h3>
-<div class="paragraph">
-<p>Begin debugging by checking the status of your pods.</p>
-</div>
-<div class="paragraph">
-<p>To list all pods:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To list pods in a specific namespace:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods --namespace=&lt;namespace-name&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods --namespace=default</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">NAME                                    READY   STATUS             RESTARTS   AGE
-hello-node-7b87cd5f68-2wp4m             1/1     Running            0          21m
-nginx-deployment-66b6c48dd5-8k4h2       0/1     Pending            0          5m
-redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If a pod is stuck in <code>Pending</code> status, check cluster resource availability running the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl describe node &lt;node-name&gt;</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>For a graphical interface, use the Kubernetes dashboard:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>Open the Kubernetes dashboard.</p>
+<p><a href="build/html/browserstack_selenium.html">Test automation using Selenium, BrowserStack, and GitHub Actions</a></p>
 </li>
 <li>
-<p>Navigate to the <strong>Pods</strong> section.</p>
+<p><a href="build/html/cloud_vision.html">Interacting with Google Cloud Storage and Vision API using Python</a></p>
 </li>
 <li>
-<p>Select a pod to view its details.</p>
+<p><a href="build/html/debug_pods_kubernetes.html">Debugging pods in Kubernetes</a></p>
 </li>
-</ol>
+<li>
+<p><a href="build/html/RESTvsSOAP.html">Choosing between REST and SOAP: A guide for engineers</a></p>
+</li>
+<li>
+<p><a href="https://www.smashingmagazine.com/2019/02/interactive-weather-dashboard-api-vue-js/">Using Vue.js to create an interactive weather dashboard with APIs</a></p>
+</li>
+<li>
+<p><a href="build/html/findNeedles.html">Code analysis and suggestions for <code>NeedlesInHaystack</code></a></p>
+</li>
+<li>
+<p><a href="build/html/TicTacToe.html">How to play Tic-Tac-Toe</a></p>
+</li>
+</ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="/home/ssarkar/Projects/PERSONAL/technical-writing-samples/src/images/pods.png" alt="pods">
-</div>
-<div class="title">Figure 2. Pods in a Kubernetes dashboard</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_step_2_review_pod_logs">Step 2: Review pod logs</h3>
+<div class="sect1">
+<h2 id="_more_resources">More resources</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Logs help identify what a container is doing or why it failed.</p>
-</div>
-<div class="paragraph">
-<p>To view logs from all containers in a pod:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; --all-containers=true</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To view logs from a specific container:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>For pods with a single container, omit the container name.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs hello-node-7b87cd5f68-2wp4m</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">I0715 06:51:04.198447       1 log.go:195] Started HTTP server on port 8080
-I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>For pods in <code>CrashLoopBackOff</code> status, check logs with the <code>--previous</code> flag to see the last container&#8217;s logs before it crashed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; --previous</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step_3_execute_container_commands">Step 3: Execute container commands</h3>
-<div class="paragraph">
-<p>Inspect container state by running shell commands directly inside it.</p>
-</div>
-<div class="paragraph">
-<p>Syntax:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec &lt;pod-name&gt; -c &lt;container-name&gt; -- &lt;command&gt;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If not specified, commands run in the first container of the pod.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="title">Check container environment variables</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- env</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-HOSTNAME=nginx-deployment-66b6c48dd5-8k4h2
-NGINX_VERSION=1.21.1
-NJS_VERSION=0.6.1
-PKG_RELEASE=1~buster
-HOME=/root</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Verify network connectivity</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- curl -I localhost:80</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">HTTP/1.1 200 OK
-Server: nginx/1.21.1
-Date: Tue, 14 Jan 2025 10:15:23 GMT
-Content-Type: text/html
-Content-Length: 612
-Connection: keep-alive</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Check running processes</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- ps aux</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">USER       PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
-root         1  0.0  0.1  10640  5548 ?     Ss   10:00   0:00 nginx: master process
-nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker process</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>For containers that crash immediately, create a copy of the pod with a sleep command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug &lt;pod-name&gt; --copy-to=&lt;pod-name&gt;-debug --container=&lt;container-name&gt; -- sleep 1d</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step_4_use_ephemeral_debug_containers">Step 4: Use ephemeral debug containers</h3>
-<div class="paragraph">
-<p>Ephemeral containers let you attach debugging tools to running pods without modifying the original containers.</p>
-</div>
-<div class="paragraph">
-<p>To create an ephemeral debug container:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug &lt;pod-name&gt; -it --image=&lt;debug-image&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="title">Debug networking issues using netshoot</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug nginx-deployment-66b6c48dd5-8k4h2 -it --image=nicolaka/netshoot</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">Defaulting debug container name to debugger-nx8j2.
-If you don't see a command prompt, try pressing enter.
-~ # dig kubernetes.default.svc.cluster.local
-~ # curl -v telnet://nginx-service:80
-~ # tcpdump -i any port 80</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Analyze memory usage with tools</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug redis-master-58db8984f-xp4c8 -it --image=ubuntu</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">Defaulting debug container name to debugger-7xj4d.
-If you don't see a command prompt, try pressing enter.
-root@redis-master-58db8984f-xp4c8:/# apt-get update
-root@redis-master-58db8984f-xp4c8:/# apt-get install -y procps
-root@redis-master-58db8984f-xp4c8:/# top
-...Memory usage details...</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>For pods with <code>ImagePullBackOff</code> status, verify image name and registry credentials. Check image pull secrets using:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pod &lt;pod-name&gt; -o=jsonpath='{.spec.imagePullSecrets[0].name}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
+<p>For more information on my technical notes, software projects, and my career, refer to the following resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://sounix000.github.io/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://github.com/sounix000">GitHub</a></p>
+</li>
+<li>
+<p><a href="https://www.linkedin.com/in/sounix000/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://sounix000.github.io/cv-resume">CV/Resume</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
