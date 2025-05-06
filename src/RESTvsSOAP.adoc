@@ -1,19 +1,9 @@
 = Choosing between REST and SOAP: A guide for engineers
-:toc: macro
-:doctype: article
-:pdf-page-size: Letter
-:sectnums!:
-:experimental:
-:source-highlighter: pygments
-:pygments-style: oscar
-:pdf-themesdir: {docdir}
-:imagesdir: {docdir}/images
+:toc: left
+:last-update-label!: 
 :nofooter:
 
-toc::[]
-
----
-
+== Overview
 When designing a web service, you must carefully evaluate the choice between SOAP and REST. This guide explains their strengths, limitations, and use cases to help you make an informed decision.
 
 == SOAP overview

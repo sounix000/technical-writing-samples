@@ -436,15 +436,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Code analysis and suggestions for <code>NeedlesInHaystack</code></h1>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div id="toc" class="toc">
-<div id="toctitle" class="title">Table of Contents</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_api_reference">API reference</a>
 <ul class="sectlevel2">
@@ -458,9 +454,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<hr>
 </div>
-</div>
+<div id="content">
 <div class="sect1">
 <h2 id="_api_reference">API reference</h2>
 <div class="sectionbody">
@@ -505,7 +500,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="_example">Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">String haystack = "Google Cloud provides APIs to use Google's ML/AI capabilities.";
+<pre class="highlight"><code class="language-java" data-lang="java">String haystack = "Google Cloud provides APIs to use Google's ML/AI capabilities.";
 String[] needles = {"Google", "API", "documentation", "AWS", "ML/AI"};
 new NeedlesInHaystack().findNeedles(haystack, needles);</code></pre>
 </div>
@@ -515,7 +510,7 @@ new NeedlesInHaystack().findNeedles(haystack, needles);</code></pre>
 <h4 id="_output">Output</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code>Google: 2
+<pre class="highlight"><code>Google: 2
 API: 0
 documentation: 0
 AWS: 0
@@ -558,7 +553,7 @@ ML/AI: 1</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">public class NeedlesInHaystack {
+<pre class="highlight"><code class="language-java" data-lang="java">public class NeedlesInHaystack {
     public static void findNeedles(String haystack, String[] needles) {
         // Store the length of the needles array in a variable
         int needlesLength = needles.length;
@@ -598,7 +593,7 @@ ML/AI: 1</code></pre>
 <h4 id="_sample_output">Sample output</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code>Google: 2
+<pre class="highlight"><code>Google: 2
 API: 0
 documentation: 0
 AWS: 0

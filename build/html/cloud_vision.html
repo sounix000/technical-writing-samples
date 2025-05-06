@@ -436,15 +436,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Interacting with Google Cloud Storage and Vision API using Python</h1>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div id="toc" class="toc">
-<div id="toctitle" class="title">Table of Contents</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
 <li><a href="#_prerequisites">Prerequisites</a></li>
@@ -468,9 +464,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_deleting_the_project">Deleting the project</a></li>
 </ul>
 </div>
-<hr>
 </div>
-</div>
+<div id="content">
 <div class="sect1">
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
@@ -662,7 +657,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Ensure Python 3.x and <code>pip3</code> are installed on your system, and upgrade <code>pip</code> if necessary:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ python3 --version
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ python3 --version
 $ pip3 --version
 $ pip3 install --upgrade pip</code></pre>
 </div>
@@ -672,7 +667,7 @@ $ pip3 install --upgrade pip</code></pre>
 <p>Create a project directory and navigate to it:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ mkdir PROJECT_DIRECTORY
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ mkdir PROJECT_DIRECTORY
 $ cd PROJECT_DIRECTORY</code></pre>
 </div>
 </div>
@@ -681,7 +676,7 @@ $ cd PROJECT_DIRECTORY</code></pre>
 <p>Set up a virtual environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ pip3 install --upgrade virtualenv
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ pip3 install --upgrade virtualenv
 $ virtualenv VIRTUALENV_NAME
 $ source VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
@@ -704,7 +699,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Initialize the project:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ gcloud init</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ gcloud init</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -722,7 +717,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Install the Storage and Vision client libraries for Python:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ pip3 install --upgrade google-cloud-storage google-cloud-vision</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ pip3 install --upgrade google-cloud-storage google-cloud-vision</code></pre>
 </div>
 </div>
 </li>
@@ -730,7 +725,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Create a service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ gcloud iam service-accounts create SERVICE_ACCOUNT_NAME</code></pre>
 </div>
 </div>
 </li>
@@ -738,7 +733,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Grant permissions to the service account:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ gcloud projects add-iam-policy-binding PROJECT_ID \
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ gcloud projects add-iam-policy-binding PROJECT_ID \
   --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com" \
   --role="roles/owner"</code></pre>
 </div>
@@ -748,7 +743,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Generate a key file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ gcloud iam service-accounts keys create KEY_FILE.json \
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ gcloud iam service-accounts keys create KEY_FILE.json \
   --iam-account=SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com</code></pre>
 </div>
 </div>
@@ -775,7 +770,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Append the following line to <code>~/.bashrc</code> (or your shell&#8217;s equivalent):</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ export GOOGLE_APPLICATION_CREDENTIALS="PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json"</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ export GOOGLE_APPLICATION_CREDENTIALS="PATH/TO/PROJECT_DIRECTORY/KEY_FILE.json"</code></pre>
 </div>
 </div>
 </li>
@@ -783,7 +778,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 <p>Source the file to make the changes effective:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ source ~/.bashrc</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ source ~/.bashrc</code></pre>
 </div>
 </div>
 </li>
@@ -841,7 +836,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code>. PROJECT_DIRECTORY
+<pre class="highlight"><code>. PROJECT_DIRECTORY
 |
 |--- VIRTUALENV_NAME
 |        |
@@ -870,7 +865,7 @@ $ source VIRTUALENV_NAME/bin/activate</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"># Import dependencies
+<pre class="highlight"><code class="language-python" data-lang="python"># Import dependencies
 from __future__ import print_function
 from google.cloud import storage, vision
 import io, os
@@ -939,7 +934,7 @@ print('\n\n')</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ python3 main.py
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ python3 main.py
 
 Enter the image directory: IMAGE_DIRECTORY
 Enter the bucket name: BUCKET_NAME
@@ -1014,7 +1009,7 @@ Detection confidence score: 0.4865312874317169
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ gcloud projects delete PROJECT_ID</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ gcloud projects delete PROJECT_ID</code></pre>
 </div>
 </div>
 </div>

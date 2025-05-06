@@ -1,18 +1,7 @@
 = Interacting with Google Cloud Storage and Vision API using Python
-:toc: macro
-:doctype: article
-:pdf-page-size: Letter
-:sectnums!:
-:experimental:
-:source-highlighter: pygments
-:pygments-style: oscar
-:pdf-themesdir: {docdir}
-:imagesdir: {docdir}/images
+:toc: left
+:last-update-label!: 
 :nofooter:
-
-toc::[]
-
----
 
 == Overview
 This tutorial illustrates how to programmatically interact with Google Cloud Platform's (GCP) Storage and Vision APIs, using Python `3.x` and other relevant tools on your local machine. Python developers can use the tutorial as a guide for the following purposes:

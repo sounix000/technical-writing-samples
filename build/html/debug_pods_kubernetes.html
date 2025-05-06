@@ -436,15 +436,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Debugging pods in Kubernetes</h1>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div id="toc" class="toc">
-<div id="toctitle" class="title">Table of Contents</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
 <li><a href="#_prerequisites">Prerequisites</a></li>
@@ -458,9 +454,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<hr>
 </div>
-</div>
+<div id="content">
 <div class="sect1">
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
@@ -469,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/ssarkar/Projects/PERSONAL/technical-writing-samples/src/images/cluster_architecture.svg" alt="cluster architecture">
+<img src="./images/cluster_architecture.svg" alt="cluster architecture">
 </div>
 <div class="title">Figure 1. Kubernetes cluster architecture</div>
 </div>
@@ -531,7 +526,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl get pods</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -539,7 +534,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods --namespace=&lt;namespace-name&gt;</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl get pods --namespace=&lt;namespace-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -547,7 +542,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pods --namespace=default</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl get pods --namespace=default</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -555,7 +550,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">NAME                                    READY   STATUS             RESTARTS   AGE
+<pre class="highlight"><code class="language-shell" data-lang="shell">NAME                                    READY   STATUS             RESTARTS   AGE
 hello-node-7b87cd5f68-2wp4m             1/1     Running            0          21m
 nginx-deployment-66b6c48dd5-8k4h2       0/1     Pending            0          5m
 redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m</code></pre>
@@ -573,7 +568,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl describe node &lt;node-name&gt;</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl describe node &lt;node-name&gt;</code></pre>
 </div>
 </div>
 </td>
@@ -598,7 +593,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/ssarkar/Projects/PERSONAL/technical-writing-samples/src/images/pods.png" alt="pods">
+<img src="./images/pods.png" alt="pods">
 </div>
 <div class="title">Figure 2. Pods in a Kubernetes dashboard</div>
 </div>
@@ -613,7 +608,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; --all-containers=true</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl logs &lt;pod-name&gt; --all-containers=true</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -621,7 +616,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt;</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt;</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -643,7 +638,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs hello-node-7b87cd5f68-2wp4m</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl logs hello-node-7b87cd5f68-2wp4m</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -651,7 +646,7 @@ redis-master-58db8984f-xp4c8            0/1     ImagePullBackOff   0          2m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">I0715 06:51:04.198447       1 log.go:195] Started HTTP server on port 8080
+<pre class="highlight"><code class="language-shell" data-lang="shell">I0715 06:51:04.198447       1 log.go:195] Started HTTP server on port 8080
 I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code></pre>
 </div>
 </div>
@@ -667,7 +662,7 @@ I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl logs &lt;pod-name&gt; --previous</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl logs &lt;pod-name&gt; --previous</code></pre>
 </div>
 </div>
 </td>
@@ -685,7 +680,7 @@ I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec &lt;pod-name&gt; -c &lt;container-name&gt; -- &lt;command&gt;</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl exec &lt;pod-name&gt; -c &lt;container-name&gt; -- &lt;command&gt;</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -708,7 +703,7 @@ I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code>
 <div class="listingblock">
 <div class="title">Check container environment variables</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- env</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- env</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -716,7 +711,7 @@ I0715 06:51:04.198572       1 log.go:195] Started UDP server on port 8081</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+<pre class="highlight"><code class="language-shell" data-lang="shell">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=nginx-deployment-66b6c48dd5-8k4h2
 NGINX_VERSION=1.21.1
 NJS_VERSION=0.6.1
@@ -727,7 +722,7 @@ HOME=/root</code></pre>
 <div class="listingblock">
 <div class="title">Verify network connectivity</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- curl -I localhost:80</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- curl -I localhost:80</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -735,7 +730,7 @@ HOME=/root</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">HTTP/1.1 200 OK
+<pre class="highlight"><code class="language-shell" data-lang="shell">HTTP/1.1 200 OK
 Server: nginx/1.21.1
 Date: Tue, 14 Jan 2025 10:15:23 GMT
 Content-Type: text/html
@@ -746,7 +741,7 @@ Connection: keep-alive</code></pre>
 <div class="listingblock">
 <div class="title">Check running processes</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- ps aux</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl exec nginx-deployment-66b6c48dd5-8k4h2 -- ps aux</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -754,7 +749,7 @@ Connection: keep-alive</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">USER       PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
+<pre class="highlight"><code class="language-shell" data-lang="shell">USER       PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
 root         1  0.0  0.1  10640  5548 ?     Ss   10:00   0:00 nginx: master process
 nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker process</code></pre>
 </div>
@@ -771,7 +766,7 @@ nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker proc
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug &lt;pod-name&gt; --copy-to=&lt;pod-name&gt;-debug --container=&lt;container-name&gt; -- sleep 1d</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl debug &lt;pod-name&gt; --copy-to=&lt;pod-name&gt;-debug --container=&lt;container-name&gt; -- sleep 1d</code></pre>
 </div>
 </div>
 </td>
@@ -789,7 +784,7 @@ nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker proc
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug &lt;pod-name&gt; -it --image=&lt;debug-image&gt;</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl debug &lt;pod-name&gt; -it --image=&lt;debug-image&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -798,7 +793,7 @@ nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker proc
 <div class="listingblock">
 <div class="title">Debug networking issues using netshoot</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug nginx-deployment-66b6c48dd5-8k4h2 -it --image=nicolaka/netshoot</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl debug nginx-deployment-66b6c48dd5-8k4h2 -it --image=nicolaka/netshoot</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -806,7 +801,7 @@ nginx       31  0.0  0.1  11088  5164 ?     S    10:00   0:00 nginx: worker proc
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">Defaulting debug container name to debugger-nx8j2.
+<pre class="highlight"><code class="language-shell" data-lang="shell">Defaulting debug container name to debugger-nx8j2.
 If you don't see a command prompt, try pressing enter.
 ~ # dig kubernetes.default.svc.cluster.local
 ~ # curl -v telnet://nginx-service:80
@@ -816,7 +811,7 @@ If you don't see a command prompt, try pressing enter.
 <div class="listingblock">
 <div class="title">Analyze memory usage with tools</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl debug redis-master-58db8984f-xp4c8 -it --image=ubuntu</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl debug redis-master-58db8984f-xp4c8 -it --image=ubuntu</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -824,7 +819,7 @@ If you don't see a command prompt, try pressing enter.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">Defaulting debug container name to debugger-7xj4d.
+<pre class="highlight"><code class="language-shell" data-lang="shell">Defaulting debug container name to debugger-7xj4d.
 If you don't see a command prompt, try pressing enter.
 root@redis-master-58db8984f-xp4c8:/# apt-get update
 root@redis-master-58db8984f-xp4c8:/# apt-get install -y procps
@@ -844,7 +839,7 @@ root@redis-master-58db8984f-xp4c8:/# top
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">$ kubectl get pod &lt;pod-name&gt; -o=jsonpath='{.spec.imagePullSecrets[0].name}'</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ kubectl get pod &lt;pod-name&gt; -o=jsonpath='{.spec.imagePullSecrets[0].name}'</code></pre>
 </div>
 </div>
 </td>

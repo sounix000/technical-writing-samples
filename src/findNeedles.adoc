@@ -1,18 +1,7 @@
 = Code analysis and suggestions for `NeedlesInHaystack`
-:toc: macro
-:doctype: article
-:pdf-page-size: Letter
-:sectnums!:
-:experimental:
-:source-highlighter: pygments
-:pygments-style: oscar
-:pdf-themesdir: {docdir}
-:imagesdir: {docdir}/images
+:toc: left
+:last-update-label!: 
 :nofooter:
-
-toc::[]
-
----
 
 == API reference
 For this section, I assumed that the method in the code sample is part of a class `NeedlesInHaystack`.
