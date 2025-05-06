@@ -1,0 +1,59 @@
+= Technical Writing Samples
+of Souvik Sarkar
+
+:toc: auto
+:nofooter: 
+
+== Overview
+
+Hi, I am Souvik Sarkar — a hobbyist *programmer* and a professional *technical writer*. My areas of interest are _systems_, _security_, and _deployment_. 
+
+This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here will help them decide whether I am good enough for an interview.
+
+== Work samples
+
+Over the last several years, my day job involves writing _open source technical documentation_ for my employer. I have learnt a lot about the docs-as-code paradigm, adherence to style guides, and collaborating in the world of open source software.
+
+This section contains links to *merged pull requests* for the projects on which I worked. If you want to know how I perform in a professional environment, closely observing the pull requests will reveal the details that matter.
+
+=== Pull requests at SUSE
+
+* link:https://github.com/SUSE/doc-sle/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000[Administration guides for SUSE Linux Enterprise]
+
+* link:https://github.com/SUSE/doc-modular/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000[Modular documentation for SUSE Linux Enterprise]
+
+* link:https://github.com/SUSE/doc-unversioned/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000[Compliance and certification documentation for SUSE Linux Enterprise]
+
+=== Pull requests at Red Hat
+
+* link:https://github.com/openshift/openshift-docs/pulls?q=is%3Apr+is%3Aclosed+author%3Asounix000[OpenShift Pipelines documentation]
+
+== Interview samples
+
+I wrote a few articles as interview samples for a prospective employers, who neither paid me for my effort nor made me sign an NDA. This section contains those articles. 
+
+* link:build/html/browserstack_selenium.html[Test automation using Selenium, BrowserStack, and GitHub Actions]
+
+* link:build/html/cloud_vision.html[Interacting with Google Cloud Storage and Vision API using Python]
+
+* link:build/html/debug_pods_kubernetes.html[Debugging pods in Kubernetes]
+
+* link:build/html/RESTvsSOAP.html[Choosing between REST and SOAP: A guide for engineers]
+
+* link:https://www.smashingmagazine.com/2019/02/interactive-weather-dashboard-api-vue-js/[Using Vue.js to create an interactive weather dashboard with APIs]
+
+* link:build/html/findNeedles.html[Code analysis and suggestions for `NeedlesInHaystack`]
+
+* link:build/html/TicTacToe.html[How to play Tic-Tac-Toe]
+
+== More resources
+
+For more information on my technical notes, software projects, and my career, refer to the following resources:
+
+* link:https://sounix000.github.io/[Blog]
+
+* link:https://github.com/sounix000[GitHub]
+
+* link:https://www.linkedin.com/in/sounix000/[Linkedin]
+
+* link:https://sounix000.github.io/cv-resume[CV/Resume]
