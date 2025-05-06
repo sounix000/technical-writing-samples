@@ -1,7 +1,7 @@
 = Technical Writing Samples
 of Souvik Sarkar
-
-:toc: auto
+:toc: left
+:last-update-label!: 
 :nofooter: 
 
 == Overview
