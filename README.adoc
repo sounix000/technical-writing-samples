@@ -6,7 +6,7 @@ of Souvik Sarkar
 
 == Overview
 
-Hi, I am Souvik Sarkar — a hobbyist *programmer* and a professional *technical writer*. My areas of interest are _systems_, _security_, and _deployment_. 
+Hi, I am link:https://sounix000.github.io/souvik-sarkar.html[Souvik Sarkar] — a hobbyist *programmer* and a professional *technical writer*. My areas of interest are _systems_, _security_, and _deployment_. 
 
 This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here will help them decide whether I am good enough for an interview.
 
