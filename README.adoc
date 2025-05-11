@@ -8,7 +8,7 @@ of Souvik Sarkar
 
 Hi, I am link:https://sounix000.github.io/souvik-sarkar.html[Souvik Sarkar] — a *technical writer* with experience in programming and open source tools. 
 
-This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here, along with more free-flowing and current posts in my blog, will help them decide whether I am good enough for an interview.
+This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples and additional resources provided here will help them decide whether I am good enough for an interview.
 
 == Work samples
 
