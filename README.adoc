@@ -6,13 +6,13 @@ of Souvik Sarkar
 
 == Overview
 
-Hi, I am link:https://sounix000.github.io/souvik-sarkar.html[Souvik Sarkar] — a *technical writer* with experience in programming and open source tools. My current areas of interest are _Linux_, _Security_, and _Cryptography_. 
+Hi, I am link:https://sounix000.github.io/souvik-sarkar.html[Souvik Sarkar] — a *technical writer* with experience in programming and open source tools. 
 
-This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here will help them decide whether I am good enough for an interview.
+This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples provided here, along with more free-flowing and current posts in my blog, will help them decide whether I am good enough for an interview.
 
 == Work samples
 
-Over the last several years, my day job involves writing _open source technical documentation_ for my employer. I have learnt a lot about the docs-as-code paradigm, adherence to style guides, and collaborating in the world of open source software.
+Over the last several years, my day job involves writing _open source technical documentation_ for my employer. I learnt a lot about modularity, the docs-as-code paradigm, and collaborating in the world of open source software.
 
 This section contains links to *merged pull requests* for the projects on which I worked. If you want to know how I perform in a professional environment, closely observing the pull requests will reveal the details that matter.
 
