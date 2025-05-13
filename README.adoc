@@ -52,9 +52,7 @@ I wrote some articles as interview samples for a prospective employers, who _nei
 
 == More resources
 
-For more information on my technical notes, software projects, and my career, refer to the following resources:
-
-//* link:https://sounix000.github.io/[Blog]
+For more information on my projects and career, refer to the following resources:
 
 * link:https://github.com/sounix000[GitHub]
 
