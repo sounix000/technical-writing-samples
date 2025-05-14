@@ -6,8 +6,6 @@ of Souvik Sarkar
 
 == Overview
 
-image:profile-modified-reduced.png[]
-
 Hi, I am *Souvik Sarkar* — a *technical writer* with experience in programming and open source tools. 
 
 This page is meant for recruiters and managers hiring for technical writing roles. I hope that the samples and additional resources provided here will help them decide whether I am good enough for an interview.
